@@ -11,7 +11,7 @@ const soundsData = [
 const translations = {
     ko: {
         title: "My ASMR Space",
-        subtitle: "나만의 소리를 믹스하여 휴식하세요.",
+        subtitle: "나만의 소리로 휴식하세요.",
         asmr_title: "ASMR과 백색소음이란?",
         asmr_desc: "ASMR(Autonomous Sensory Meridian Response)은 뇌를 자극해 심리적인 안정을 유도하는 소리입니다. 빗소리, 장작 타는 소리, 타자 소리와 같은 백색소음(White Noise)은 주변의 거슬리는 소음을 덮어주고 집중력을 향상시키거나 수면을 돕는 데 효과적입니다.",
         tips_title: "My ASMR Space 활용 팁",
@@ -37,7 +37,7 @@ const translations = {
     },
     en: {
         title: "My ASMR Space",
-        subtitle: "Mix your own sounds and relax.",
+        subtitle: "Relax with your own sounds.",
         asmr_title: "What is ASMR & White Noise?",
         asmr_desc: "ASMR triggers psychological stability. White noise like rain or typing helps cover distracting noises, improving concentration and sleep.",
         tips_title: "Tips for My ASMR Space",
@@ -63,7 +63,7 @@ const translations = {
     },
     ja: {
         title: "My ASMR Space",
-        subtitle: "自分だけの音をミックスしてリラックス。",
+        subtitle: "自分だけの音でリラックス。",
         asmr_title: "ASMRとホワイトノイズとは？",
         asmr_desc: "ASMRは心理的な安定を誘導する音です。雨音や焚き火などのホワイトノイズは、騒音を遮断し、集中力や睡眠を助けます。",
         tips_title: "活用法",
@@ -89,7 +89,7 @@ const translations = {
     },
     zh: {
         title: "My ASMR Space",
-        subtitle: "混合属于你的声音，享受放松。",
+        subtitle: "用属于你的声音放松。",
         asmr_title: "什么是 ASMR？",
         asmr_desc: "ASMR 是一种诱导心理稳定的声音。雨声、打字声等白噪音有助于掩盖噪音，提高注意力或助眠。",
         tips_title: "使用技巧",
@@ -115,7 +115,7 @@ const translations = {
     },
     es: {
         title: "My ASMR Space",
-        subtitle: "Mezcla tus propios sonidos y relájate.",
+        subtitle: "Relájate con tus propios sonidos.",
         asmr_title: "¿Qué es ASMR y Ruido Blanco?",
         asmr_desc: "ASMR induce estabilidad psicológica. El ruido blanco como la lluvia ayuda a cubrir ruidos molestos, mejorando la concentración y el sueño.",
         tips_title: "Consejos de uso",
