@@ -2,6 +2,8 @@
 const soundsData = [
     { id: 'rain', icon: 'cloud-rain', file: 'rain.mp3' },
     { id: 'fire', icon: 'flame', file: 'fire.mp3' },
+    { id: 'bird', icon: 'bird', file: 'bird.mp3' },
+    { id: 'book', icon: 'book', file: 'book.mp3' },
     { id: 'keyboard', icon: 'keyboard', file: 'keyboard.mp3' }
 ];
 
@@ -17,7 +19,7 @@ const translations = {
         tip_relax: "<strong>휴식이 필요할 때:</strong> 빗소리와 장작불 소리로 아늑한 분위기를 만들어보세요.",
         tip_sleep: "<strong>수면 유도:</strong> 볼륨을 낮추고 자연의 소리에 귀를 기울여보세요.",
         site_desc: "이 사이트는 사용자에게 무료로 휴식과 집중을 위한 소리를 제공합니다. 별도의 설치 없이 웹 브라우저에서 바로 이용할 수 있습니다.",
-        contact_title: "문의하기",
+        contact_title: "ASMR 추가 문의",
         email_label: "이메일",
         email_placeholder: "답변 받으실 이메일 주소",
         msg_label: "메시지",
@@ -27,6 +29,8 @@ const translations = {
         privacy: "개인정보처리방침",
         sound_rain: "빗소리",
         sound_fire: "장작불",
+        sound_bird: "새소리",
+        sound_book: "책 넘기는 소리",
         sound_keyboard: "타자 소리",
         play: "재생",
         stop: "정지"
@@ -41,7 +45,7 @@ const translations = {
         tip_relax: "<strong>For Relax:</strong> Use rain and fire sounds.",
         tip_sleep: "<strong>For Sleep:</strong> Lower volume and listen to nature.",
         site_desc: "Free sounds for relaxation and focus. No installation required.",
-        contact_title: "Contact Us",
+        contact_title: "Request New Sounds",
         email_label: "Email",
         email_placeholder: "Your email address",
         msg_label: "Message",
@@ -51,6 +55,8 @@ const translations = {
         privacy: "Privacy Policy",
         sound_rain: "Rain",
         sound_fire: "Fire",
+        sound_bird: "Birds",
+        sound_book: "Page Turning",
         sound_keyboard: "Typing",
         play: "Play",
         stop: "Stop"
@@ -65,7 +71,7 @@ const translations = {
         tip_relax: "<strong>リラックス：</strong> 雨音と焚き火で落ち着く。",
         tip_sleep: "<strong>睡眠：</strong> 音量を下げて自然音を。",
         site_desc: "リラックスと集中のための無料サウンドサイトです。",
-        contact_title: "お問い合わせ",
+        contact_title: "ASMR追加リクエスト",
         email_label: "メール",
         email_placeholder: "返信先メールアドレス",
         msg_label: "メッセージ",
@@ -75,6 +81,8 @@ const translations = {
         privacy: "プライバシーポリシー",
         sound_rain: "雨音",
         sound_fire: "焚き火",
+        sound_bird: "鳥のさえずり",
+        sound_book: "本をめくる音",
         sound_keyboard: "タイピング",
         play: "再生",
         stop: "停止"
@@ -89,7 +97,7 @@ const translations = {
         tip_relax: "<strong>放松：</strong> 雨声和柴火声。",
         tip_sleep: "<strong>助眠：</strong> 调低音量听自然声。",
         site_desc: "免费提供放松和集中的声音。无需安装。",
-        contact_title: "联系我们",
+        contact_title: "ASMR 添加请求",
         email_label: "邮箱",
         email_placeholder: "您的邮箱地址",
         msg_label: "留言",
@@ -99,6 +107,8 @@ const translations = {
         privacy: "隐私政策",
         sound_rain: "雨声",
         sound_fire: "柴火",
+        sound_bird: "鸟鸣声",
+        sound_book: "翻书声",
         sound_keyboard: "打字声",
         play: "播放",
         stop: "停止"
@@ -113,7 +123,7 @@ const translations = {
         tip_relax: "<strong>Para Relajarse:</strong> Usa sonidos de lluvia y fuego.",
         tip_sleep: "<strong>Para Dormir:</strong> Baja el volumen y escucha la naturaleza.",
         site_desc: "Sonidos gratuitos para relajación y concentración.",
-        contact_title: "Contáctanos",
+        contact_title: "Solicitar nuevos sonidos",
         email_label: "Correo",
         email_placeholder: "Tu correo electrónico",
         msg_label: "Mensaje",
@@ -123,6 +133,8 @@ const translations = {
         privacy: "Política de Privacidad",
         sound_rain: "Lluvia",
         sound_fire: "Fuego",
+        sound_bird: "Pájaros",
+        sound_book: "Pasar páginas",
         sound_keyboard: "Teclado",
         play: "Reprod.",
         stop: "Parar"
