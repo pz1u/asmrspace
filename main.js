@@ -261,3 +261,4 @@ function updateLanguage() {
 }
 
 lucide.createIcons();
+updateLanguage();
