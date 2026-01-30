@@ -6,6 +6,18 @@
     <title>Free ASMR Sounds for Sleep & Focus | 잠 잘 오는 무료 ASMR - asmrspace.shop</title>
     <meta name="description" content="Free ASMR website for sleep and focus. Listen to rain, fire, typing sounds, and white noise. 잠 잘 오는 무료 ASMR 사이트입니다. 빗소리, 장작불 등 백색소음을 무료로 들어보세요.">
     <meta name="keywords" content="ASMR, White Noise, Sleep Sounds, Focus Music, Rain Sounds, Fire Sounds, 백색소음, 수면유도, 빗소리, 장작불">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asmrspace.shop/">
+    <meta property="og:title" content="My ASMR Space - Free ASMR Sounds">
+    <meta property="og:description" content="잠 잘 오는 무료 ASMR 사이트입니다. 빗소리, 장작불 등 백색소음을 무료로 들어보세요.">
+    <meta property="og:image" content="https://asmrspace.shop/og-image.jpg">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://asmrspace.shop/">
+    <meta property="twitter:title" content="My ASMR Space - Free ASMR Sounds">
+    <meta property="twitter:description" content="잠 잘 오는 무료 ASMR 사이트입니다. 빗소리, 장작불 등 백색소음을 무료로 들어보세요.">
+    <meta property="twitter:image" content="https://asmrspace.shop/og-image.jpg">
     <!-- Favicon (Headphone Emoji) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🎧</text></svg>">
     <!-- Google tag (gtag.js) -->
@@ -114,5 +126,13 @@
 
     <!-- Main JS -->
     <script src="main.js"></script>
+    <script>
+        // 아이콘 초기화 및 렌더링 보장
+        window.addEventListener('load', function() {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
 </body>
 </html>
