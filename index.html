@@ -7,7 +7,7 @@
     <meta name="description" content="Free ASMR website for sleep and focus. Listen to rain, fire, typing sounds, and white noise. 잠 잘 오는 무료 ASMR 사이트입니다. 빗소리, 장작불 등 백색소음을 무료로 들어보세요.">
     <meta name="keywords" content="ASMR, White Noise, Sleep Sounds, Focus Music, Rain Sounds, Fire Sounds, 백색소음, 수면유도, 빗소리, 장작불">
     <!-- Favicon (Headphone Emoji) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎧</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🎧</text></svg>">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BMKFVMLSN6"></script>
     <script>
@@ -31,13 +31,19 @@
 <body class="bg-slate-900 text-white min-h-screen flex flex-col">
     <header class="p-6 text-center relative">
         <div class="flex justify-end mb-4 sm:absolute sm:top-4 sm:right-4 sm:mb-0">
-            <select id="lang-select" class="bg-slate-800 text-white border border-slate-600 rounded-lg p-2 text-sm focus:outline-none focus:border-blue-400">
-                <option value="ko">한국어</option>
-                <option value="en">English</option>
-                <option value="ja">日本語</option>
-                <option value="zh">中文</option>
-                <option value="es">Español</option>
-            </select>
+            <div class="relative inline-block text-left">
+                <button id="lang-btn" class="flex items-center gap-2 bg-slate-800 text-white border border-slate-600 rounded-lg px-3 py-2 text-sm hover:bg-slate-700 transition-colors focus:outline-none focus:border-blue-400">
+                    <i data-lucide="globe" class="w-4 h-4"></i>
+                    <span>Language</span>
+                </button>
+                <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-slate-800 border border-slate-600 rounded-lg shadow-xl z-50">
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white first:rounded-t-lg" data-lang="ko">한국어</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white" data-lang="en">English</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white" data-lang="ja">日本語</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white" data-lang="zh">中文</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white last:rounded-b-lg" data-lang="es">Español</button>
+                </div>
+            </div>
         </div>
         <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text" data-i18n="title">
             My ASMR Space

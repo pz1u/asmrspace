@@ -142,7 +142,8 @@ const translations = {
 };
 
 const soundGrid = document.getElementById('sound-grid');
-const langSelect = document.getElementById('lang-select');
+const langBtn = document.getElementById('lang-btn');
+const langMenu = document.getElementById('lang-menu');
 
 // Web Audio API 설정 (모바일 볼륨 제어 문제 해결)
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -158,8 +159,6 @@ if (userLang.includes('ko')) currentLang = 'ko';
 else if (userLang.includes('ja')) currentLang = 'ja';
 else if (userLang.includes('zh')) currentLang = 'zh';
 else if (userLang.includes('es')) currentLang = 'es';
-
-langSelect.value = currentLang;
 
 // Initialize Sound Cards
 // 카드 생성 및 오디오 초기화
@@ -248,9 +247,23 @@ function updateUI(id, isPlaying) {
 }
 
 // 언어 변경 기능
-langSelect.addEventListener('change', (e) => {
-    currentLang = e.target.value;
-    updateLanguage();
+langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    langMenu.classList.toggle('hidden');
+});
+
+document.addEventListener('click', (e) => {
+    if (!langBtn.contains(e.target) && !langMenu.contains(e.target)) {
+        langMenu.classList.add('hidden');
+    }
+});
+
+document.querySelectorAll('[data-lang]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        currentLang = e.target.getAttribute('data-lang');
+        updateLanguage();
+        langMenu.classList.add('hidden');
+    });
 });
 
 function updateLanguage() {
