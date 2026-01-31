@@ -182,7 +182,8 @@ soundsData.forEach(sound => {
         <div class="text-blue-400 mb-2"><i data-lucide="${sound.icon}" width="48" height="48"></i></div>
         <h3 class="text-xl font-bold" data-i18n="sound_${sound.id}">${translations[currentLang]['sound_' + sound.id]}</h3>
         <div class="w-full flex flex-col gap-3 mt-2">
-            <button id="btn-${sound.id}" class="w-full py-2 rounded-lg bg-slate-600 hover:bg-blue-500 text-white font-medium transition-colors flex justify-center items-center gap-2">
+            <button id="btn-${sound.id}" class="w-full py-2 rounded-lg bg-slate-600 hover:bg-blue-500 text-white font-medium transition-colors flex justify-center items-center gap-2"
+                onclick="if(typeof Android !== 'undefined') Android.playAudio('https://asmrspace.shop/sounds/${sound.file}')">
                 <i data-lucide="play" width="16"></i> <span data-i18n="play">${translations[currentLang].play}</span>
             </button>
             <div class="flex items-center gap-2">
