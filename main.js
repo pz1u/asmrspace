@@ -206,65 +206,72 @@ const quotes = [
 ];
 
 // 즐겨찾기 데이터 로드
-let favorites = JSON.parse(localStorage.getItem('asmr_favorites')) || [];
+let favorites = [];
+try {
+    favorites = JSON.parse(localStorage.getItem('asmr_favorites')) || [];
+} catch (e) {
+    console.log('Local Storage not available');
+}
 let showFavoritesOnly = false;
 
 // Initialize Sound Cards
 // 카드 생성 및 오디오 초기화
-soundsData.forEach(sound => {
-    const card = document.createElement('div');
-    const isFav = favorites.includes(sound.id);
-    card.className = 'w-full sm:w-72 bg-white dark:bg-slate-800 border-2 border-transparent rounded-xl p-6 flex flex-col items-center gap-4 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm';
-    card.id = `card-${sound.id}`;
-    card.dataset.id = sound.id; // 필터링용
-    card.innerHTML = `
-        <div class="w-full flex justify-between items-start">
-            <div class="w-8"></div> <!-- Spacer for centering -->
-            <div class="text-blue-400 mb-2"><i data-lucide="${sound.icon}" width="48" height="48"></i></div>
-            <button class="fav-btn w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors ${isFav ? 'text-red-500' : 'text-slate-300 dark:text-slate-600'}" data-id="${sound.id}">
-                <i data-lucide="heart" class="w-5 h-5 ${isFav ? 'fill-current' : ''}"></i>
-            </button>
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 dark:text-white" data-i18n="sound_${sound.id}">${translations[currentLang]['sound_' + sound.id]}</h3>
-        <div class="w-full flex flex-col gap-3 mt-2">
-            <button id="btn-${sound.id}" class="w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2"
-                onclick="if(typeof Android !== 'undefined') Android.playAudio('https://asmrspace.shop/sounds/${sound.file}')">
-                <i data-lucide="play" width="16"></i> <span data-i18n="play">${translations[currentLang].play}</span>
-            </button>
-            <div class="flex items-center gap-2">
-                <i data-lucide="volume-2" width="16" class="text-slate-400"></i>
-                <input type="range" id="vol-${sound.id}" min="0" max="1" step="0.01" value="0.5">
+if (soundGrid) {
+    soundsData.forEach(sound => {
+        const card = document.createElement('div');
+        const isFav = favorites.includes(sound.id);
+        card.className = 'w-full sm:w-72 bg-white dark:bg-slate-800 border-2 border-transparent rounded-xl p-6 flex flex-col items-center gap-4 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm';
+        card.id = `card-${sound.id}`;
+        card.dataset.id = sound.id; // 필터링용
+        card.innerHTML = `
+            <div class="w-full flex justify-between items-start">
+                <div class="w-8"></div> <!-- Spacer for centering -->
+                <div class="text-blue-400 mb-2"><i data-lucide="${sound.icon}" width="48" height="48"></i></div>
+                <button class="fav-btn w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors ${isFav ? 'text-red-500' : 'text-slate-300 dark:text-slate-600'}" data-id="${sound.id}">
+                    <i data-lucide="heart" class="w-5 h-5 ${isFav ? 'fill-current' : ''}"></i>
+                </button>
             </div>
-        </div>`;
-    soundGrid.appendChild(card);
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white" data-i18n="sound_${sound.id}">${translations[currentLang]['sound_' + sound.id]}</h3>
+            <div class="w-full flex flex-col gap-3 mt-2">
+                <button id="btn-${sound.id}" class="w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2"
+                    onclick="if(typeof Android !== 'undefined') Android.playAudio('https://asmrspace.shop/sounds/${sound.file}')">
+                    <i data-lucide="play" width="16"></i> <span data-i18n="play">${translations[currentLang].play}</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="volume-2" width="16" class="text-slate-400"></i>
+                    <input type="range" id="vol-${sound.id}" min="0" max="1" step="0.01" value="0.5">
+                </div>
+            </div>`;
+        soundGrid.appendChild(card);
 
-    const audio = new Audio(sound.file);
-    audio.crossOrigin = "anonymous"; // CORS 허용
-    audio.loop = true;
-    
-    // Web Audio API 연결 (GainNode를 통해 볼륨 제어)
-    const track = audioCtx.createMediaElementSource(audio);
-    const gainNode = audioCtx.createGain();
-    gainNode.gain.value = 0.5; // 초기 볼륨 50%
-    
-    // 오디오 그래프 연결: Source -> Gain -> Analyser -> Destination
-    track.connect(gainNode);
-    gainNode.connect(analyser);
-    gainNode.connect(audioCtx.destination);
+        const audio = new Audio(sound.file);
+        audio.crossOrigin = "anonymous"; // CORS 허용
+        audio.loop = true;
+        
+        // Web Audio API 연결 (GainNode를 통해 볼륨 제어)
+        const track = audioCtx.createMediaElementSource(audio);
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.value = 0.5; // 초기 볼륨 50%
+        
+        // 오디오 그래프 연결: Source -> Gain -> Analyser -> Destination
+        track.connect(gainNode);
+        gainNode.connect(analyser);
+        gainNode.connect(audioCtx.destination);
 
-    audioPlayers[sound.id] = { audio, gainNode, isPlaying: false };
+        audioPlayers[sound.id] = { audio, gainNode, isPlaying: false };
 
-    const playBtn = card.querySelector(`#btn-${sound.id}`);
-    const volSlider = card.querySelector(`#vol-${sound.id}`);
-    const favBtn = card.querySelector('.fav-btn');
+        const playBtn = card.querySelector(`#btn-${sound.id}`);
+        const volSlider = card.querySelector(`#vol-${sound.id}`);
+        const favBtn = card.querySelector('.fav-btn');
 
-    playBtn.addEventListener('click', () => {
-        if (audioCtx.state === 'suspended') audioCtx.resume(); // 브라우저 자동재생 정책 대응
-        toggleSound(sound.id);
+        playBtn.addEventListener('click', () => {
+            if (audioCtx.state === 'suspended') audioCtx.resume(); // 브라우저 자동재생 정책 대응
+            toggleSound(sound.id);
+        });
+        volSlider.addEventListener('input', (e) => gainNode.gain.value = e.target.value);
+        favBtn.addEventListener('click', () => toggleFavorite(sound.id, favBtn));
     });
-    volSlider.addEventListener('input', (e) => gainNode.gain.value = e.target.value);
-    favBtn.addEventListener('click', () => toggleFavorite(sound.id, favBtn));
-});
+}
 
 function toggleSound(id) {
     const player = audioPlayers[id];
@@ -318,20 +325,24 @@ function updateUI(id, isPlaying) {
 // 즐겨찾기 토글 기능
 function toggleFavorite(id, btn) {
     const index = favorites.indexOf(id);
-    const icon = btn.querySelector('i');
+    const icon = btn.querySelector('svg');
     
     if (index === -1) {
         favorites.push(id);
         btn.classList.remove('text-slate-300', 'dark:text-slate-600');
         btn.classList.add('text-red-500');
-        icon.classList.add('fill-current');
+        if (icon) icon.classList.add('fill-current');
     } else {
         favorites.splice(index, 1);
         btn.classList.remove('text-red-500');
         btn.classList.add('text-slate-300', 'dark:text-slate-600');
-        icon.classList.remove('fill-current');
+        if (icon) icon.classList.remove('fill-current');
     }
-    localStorage.setItem('asmr_favorites', JSON.stringify(favorites));
+    try {
+        localStorage.setItem('asmr_favorites', JSON.stringify(favorites));
+    } catch (e) {
+        console.log('Local Storage save failed');
+    }
     
     // 필터가 켜져있으면 즉시 반영
     if (showFavoritesOnly) {
@@ -352,18 +363,25 @@ function applyFavoriteFilter() {
     });
 }
 
-favFilterBtn.addEventListener('click', () => {
-    showFavoritesOnly = !showFavoritesOnly;
-    favFilterBtn.classList.toggle('bg-red-50', showFavoritesOnly);
-    favFilterBtn.classList.toggle('dark:bg-red-900/30', showFavoritesOnly);
-    favFilterBtn.classList.toggle('border-red-200', showFavoritesOnly);
-    favFilterBtn.classList.toggle('text-red-500', showFavoritesOnly);
-    applyFavoriteFilter();
-});
+if (favFilterBtn) {
+    favFilterBtn.addEventListener('click', () => {
+        showFavoritesOnly = !showFavoritesOnly;
+        favFilterBtn.classList.toggle('bg-red-50', showFavoritesOnly);
+        favFilterBtn.classList.toggle('dark:bg-red-900/30', showFavoritesOnly);
+        favFilterBtn.classList.toggle('border-red-200', showFavoritesOnly);
+        favFilterBtn.classList.toggle('text-red-500', showFavoritesOnly);
+        applyFavoriteFilter();
+    });
+}
 
 // 테마 설정 기능
 function initTheme() {
-    const savedTheme = localStorage.getItem('asmr_theme');
+    let savedTheme = null;
+    try {
+        savedTheme = localStorage.getItem('asmr_theme');
+    } catch (e) {
+        console.log('Local Storage not available');
+    }
     if (savedTheme === 'light') {
         document.documentElement.classList.remove('dark');
     } else {
@@ -374,12 +392,17 @@ function initTheme() {
 themeBtn.addEventListener('click', () => {
     document.documentElement.classList.toggle('dark');
     const isDark = document.documentElement.classList.contains('dark');
-    localStorage.setItem('asmr_theme', isDark ? 'dark' : 'light');
+    try {
+        localStorage.setItem('asmr_theme', isDark ? 'dark' : 'light');
+    } catch (e) {
+        console.log('Local Storage save failed');
+    }
 });
 
 // 오늘의 명언 기능
 function updateQuote() {
     const quoteEl = document.getElementById('daily-quote');
+    if (!quoteEl) return;
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     quoteEl.textContent = `"${randomQuote}"`;
 }
@@ -387,6 +410,7 @@ function updateQuote() {
 // 오디오 비주얼라이저
 function initVisualizer() {
     const canvas = document.getElementById('visualizer');
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
