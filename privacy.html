@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,29 +16,85 @@
       gtag('config', 'G-BMKFVMLSN6');
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css?v=1.1">
 </head>
-<body class="bg-slate-900 text-slate-300 min-h-screen p-8">
-    <div class="max-w-3xl mx-auto bg-slate-800 p-8 rounded-xl shadow-lg border border-slate-700">
-        <h1 class="text-3xl font-bold text-white mb-6">개인정보처리방침</h1>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-white min-h-screen flex flex-col transition-colors duration-300">
+    <header class="p-6 text-center relative z-10">
+        <div class="flex justify-end mb-4 sm:absolute sm:top-4 sm:right-4 sm:mb-0 gap-2">
+            <button id="theme-btn" class="flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+                <span class="hidden dark:block text-sm font-medium" data-i18n="theme_dark">Dark Mode</span>
+                <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+                <span class="block dark:hidden text-sm font-medium" data-i18n="theme_light">Light Mode</span>
+            </button>
+            <div class="relative inline-block text-left">
+                <button id="lang-btn" class="flex items-center gap-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:border-blue-400">
+                    <i data-lucide="globe" class="w-4 h-4"></i>
+                    <span>Language</span>
+                </button>
+                <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg shadow-xl z-50">
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 first:rounded-t-lg" data-lang="ko">한국어</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-lang="en">English</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-lang="ja">日本語</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-lang="zh">中文</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 last:rounded-b-lg" data-lang="es">Español</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8 relative z-10">
+    <div class="max-w-3xl mx-auto bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
+        <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-6" data-i18n="privacy_title">개인정보처리방침</h1>
         
-        <p class="mb-4">My ASMR Space(이하 "사이트")는 이용자의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다.</p>
+        <div class="text-slate-600 dark:text-slate-300">
+        <p class="mb-4" data-i18n="privacy_intro">My ASMR Space(이하 "사이트")는 이용자의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다.</p>
 
-        <h2 class="text-xl font-bold text-white mt-6 mb-2">1. 개인정보의 수집 및 이용 목적</h2>
-        <p class="mb-4">본 사이트는 별도의 회원가입 없이 이용 가능하며, 이용자의 개인정보를 직접 수집하거나 저장하지 않습니다.</p>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-6 mb-2" data-i18n="privacy_sec1_title">1. 개인정보의 수집 및 이용 목적</h2>
+        <p class="mb-4" data-i18n="privacy_sec1_desc">본 사이트는 별도의 회원가입 없이 이용 가능하며, 이용자의 개인정보를 직접 수집하거나 저장하지 않습니다.</p>
 
-        <h2 class="text-xl font-bold text-white mt-6 mb-2">2. 쿠키(Cookie)의 운용 및 거부</h2>
-        <p class="mb-4">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-6 mb-2" data-i18n="privacy_sec2_title">2. 쿠키(Cookie)의 운용 및 거부</h2>
+        <p class="mb-4" data-i18n="privacy_sec2_desc">
             본 사이트는 구글 애드센스(Google AdSense) 광고를 게재하고 있습니다. 
             구글과 같은 제3자 광고 사업자는 쿠키를 사용하여 사용자의 이전 웹사이트 방문 기록을 바탕으로 광고를 게재합니다.
         </p>
         <ul class="list-disc list-inside mb-4 ml-4 space-y-1">
-            <li>사용자는 구글의 광고 설정 페이지에서 맞춤형 광고를 위한 쿠키 사용을 거부할 수 있습니다.</li>
-            <li>또는 www.aboutads.info를 방문하여 제3자 공급업체의 맞춤형 광고 쿠키 사용을 거부할 수 있습니다.</li>
+            <li data-i18n="privacy_list1">사용자는 구글의 광고 설정 페이지에서 맞춤형 광고를 위한 쿠키 사용을 거부할 수 있습니다.</li>
+            <li data-i18n="privacy_list2">또는 www.aboutads.info를 방문하여 제3자 공급업체의 맞춤형 광고 쿠키 사용을 거부할 수 있습니다.</li>
         </ul>
+        </div>
 
         <div class="mt-8 text-center">
-            <a href="index.html" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-bold transition-colors">홈으로 돌아가기</a>
+            <a href="index.html" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-bold transition-colors" data-i18n="btn_home">홈으로 돌아가기</a>
         </div>
     </div>
+    </main>
+
+    <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-8 mt-auto relative z-10">
+        <div class="container mx-auto px-4 text-center text-slate-500 dark:text-slate-400">
+            <p class="mb-2" data-i18n="copyright">&copy; 2026 My ASMR Space. All rights reserved.</p>
+            <div class="flex flex-wrap justify-center gap-4 text-sm mt-4">
+                <a href="about.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_about">제작자 소개</a>
+                <a href="science.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_science">ASMR과 과학</a>
+                <a href="guide.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_guide">이용 가이드</a>
+                <a href="glossary.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_glossary">용어 사전</a>
+                <a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_faq">FAQ</a>
+                <a href="notice.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_notice">공지사항</a>
+                <a href="sitemap.html" class="hover:text-blue-400 transition-colors" data-i18n="sitemap">사이트맵</a>
+                <a href="privacy.html" class="hover:text-blue-400 transition-colors" data-i18n="privacy">개인정보처리방침</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js?v=1.1"></script>
+    <script>
+        window.addEventListener('load', function() { if (window.lucide) lucide.createIcons(); });
+    </script>
 </body>
 </html>

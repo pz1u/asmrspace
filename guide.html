@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,53 +7,85 @@
     <meta name="description" content="ASMR을 건강하게 즐기는 방법과 My ASMR Space 사이트의 효과적인 활용법을 안내합니다.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🎧</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css?v=1.1">
 </head>
-<body class="bg-slate-900 text-slate-300 min-h-screen p-4 md:p-8 font-sans">
-    <div class="max-w-4xl mx-auto bg-slate-800 p-6 md:p-10 rounded-2xl shadow-xl border border-slate-700">
-        <h1 class="text-3xl md:text-4xl font-bold text-white mb-8 border-b border-slate-600 pb-4">🎧 올바른 청취 방법 및 사용 가이드</h1>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-white min-h-screen flex flex-col transition-colors duration-300">
+    <header class="p-6 text-center relative z-10">
+        <div class="flex justify-end mb-4 sm:absolute sm:top-4 sm:right-4 sm:mb-0 gap-2">
+            <button id="theme-btn" class="flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+                <span class="hidden dark:block text-sm font-medium" data-i18n="theme_dark">Dark Mode</span>
+                <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+                <span class="block dark:hidden text-sm font-medium" data-i18n="theme_light">Light Mode</span>
+            </button>
+            <div class="relative inline-block text-left">
+                <button id="lang-btn" class="flex items-center gap-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:border-blue-400">
+                    <i data-lucide="globe" class="w-4 h-4"></i>
+                    <span>Language</span>
+                </button>
+                <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg shadow-xl z-50">
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 first:rounded-t-lg" data-lang="ko">한국어</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-lang="en">English</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-lang="ja">日本語</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-lang="zh">中文</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 last:rounded-b-lg" data-lang="es">Español</button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        <div class="space-y-10">
+    <main class="flex-grow container mx-auto px-4 py-8 relative z-10">
+    <div class="max-w-4xl mx-auto bg-white dark:bg-slate-800 p-6 md:p-10 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
+        <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-8 border-b border-slate-200 dark:border-slate-600 pb-4" data-i18n="guide_title">🎧 올바른 청취 방법 및 사용 가이드</h1>
+
+        <div class="space-y-10 text-slate-600 dark:text-slate-300">
             <section>
-                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2" data-i18n="guide_sec1_title">
                     <span class="text-red-400">⚠️</span> 청력 보호를 위한 주의사항
                 </h2>
-                <div class="bg-slate-700/50 p-6 rounded-xl border border-slate-600">
+                <div class="bg-slate-100 dark:bg-slate-700/50 p-6 rounded-xl border border-slate-200 dark:border-slate-600">
                     <ul class="list-disc list-inside space-y-3 leading-relaxed">
-                        <li><strong>적정 볼륨 유지:</strong> 이어폰이나 헤드폰 사용 시 최대 볼륨의 60%를 넘기지 않는 것이 좋습니다. ASMR은 자극적인 소리가 아니므로, 주변 소음이 살짝 들릴 정도의 낮은 볼륨(20~40%)으로 청취하는 것이 가장 효과적이고 안전합니다.</li>
-                        <li><strong>60-60 법칙:</strong> 세계보건기구(WHO)는 이어폰 사용 시 최대 음량의 60% 이하로, 하루 60분 이내로 청취할 것을 권장합니다. 장시간 청취 시에는 반드시 중간에 귀를 쉬게 해주세요.</li>
-                        <li><strong>수면 시 주의:</strong> 이어폰을 꽂고 잠드는 것은 귀 건강에 좋지 않습니다. 수면 유도를 위해 사용할 때는 '타이머 기능'을 활용하여 잠든 후에는 소리가 꺼지도록 설정하거나, 이어폰 대신 스피커를 사용하여 귀에 직접적인 자극을 줄이는 것을 추천합니다.</li>
+                        <li data-i18n="guide_sec1_list1"><strong>적정 볼륨 유지:</strong> 이어폰이나 헤드폰 사용 시 최대 볼륨의 60%를 넘기지 않는 것이 좋습니다. ASMR은 자극적인 소리가 아니므로, 주변 소음이 살짝 들릴 정도의 낮은 볼륨(20~40%)으로 청취하는 것이 가장 효과적이고 안전합니다.</li>
+                        <li data-i18n="guide_sec1_list2"><strong>60-60 법칙:</strong> 세계보건기구(WHO)는 이어폰 사용 시 최대 음량의 60% 이하로, 하루 60분 이내로 청취할 것을 권장합니다. 장시간 청취 시에는 반드시 중간에 귀를 쉬게 해주세요.</li>
+                        <li data-i18n="guide_sec1_list3"><strong>수면 시 주의:</strong> 이어폰을 꽂고 잠드는 것은 귀 건강에 좋지 않습니다. 수면 유도를 위해 사용할 때는 '타이머 기능'을 활용하여 잠든 후에는 소리가 꺼지도록 설정하거나, 이어폰 대신 스피커를 사용하여 귀에 직접적인 자극을 줄이는 것을 추천합니다.</li>
                     </ul>
                 </div>
             </section>
 
             <section>
-                <h2 class="text-2xl font-bold text-white mb-4">💡 My ASMR Space 200% 활용하기</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4" data-i18n="guide_sec2_title">💡 My ASMR Space 200% 활용하기</h2>
                 
                 <div class="mb-6">
-                    <h3 class="text-lg font-bold text-blue-400 mb-2">1. 나만의 소리 조합 찾기 (Sound Mixing)</h3>
-                    <p class="leading-relaxed mb-2">
+                    <h3 class="text-lg font-bold text-blue-400 mb-2" data-i18n="guide_mix_title">1. 나만의 소리 조합 찾기 (Sound Mixing)</h3>
+                    <p class="leading-relaxed mb-2" data-i18n="guide_mix_desc">
                         하나의 소리만 듣는 것도 좋지만, 두 가지 이상의 소리를 섞으면 더욱 풍성한 공간감을 느낄 수 있습니다. 
                         각 소리 카드의 볼륨 슬라이더를 조절하여 나만의 믹스를 만들어보세요.
                     </p>
-                    <ul class="list-disc list-inside text-slate-400 ml-4">
-                        <li><strong>비 오는 오두막:</strong> 빗소리(70%) + 장작불(40%)</li>
-                        <li><strong>해변의 독서:</strong> 파도 소리(60%) + 책 넘기는 소리(30%) + 새소리(20%)</li>
-                        <li><strong>심야의 작업실:</strong> 빗소리(50%) + 타자 소리(80%)</li>
+                    <ul class="list-disc list-inside text-slate-500 dark:text-slate-400 ml-4">
+                        <li data-i18n="guide_mix_list1"><strong>비 오는 오두막:</strong> 빗소리(70%) + 장작불(40%)</li>
+                        <li data-i18n="guide_mix_list2"><strong>해변의 독서:</strong> 파도 소리(60%) + 책 넘기는 소리(30%) + 새소리(20%)</li>
+                        <li data-i18n="guide_mix_list3"><strong>심야의 작업실:</strong> 빗소리(50%) + 타자 소리(80%)</li>
                     </ul>
                 </div>
 
                 <div class="mb-6">
-                    <h3 class="text-lg font-bold text-blue-400 mb-2">2. 집중력 향상을 위한 뽀모도로 기법</h3>
-                    <p class="leading-relaxed">
+                    <h3 class="text-lg font-bold text-blue-400 mb-2" data-i18n="guide_pomo_title">2. 집중력 향상을 위한 뽀모도로 기법</h3>
+                    <p class="leading-relaxed" data-i18n="guide_pomo_desc">
                         공부나 업무를 할 때 타이머 기능을 활용해보세요. 
                         25분 또는 30분 타이머를 설정하고, 타자 소리나 빗소리를 배경음으로 켜둡니다. 
                         소리가 멈추면 5분간 휴식을 취합니다. 백색소음은 주변의 잡음을 차단하여 몰입도를 높여줍니다.
                     </p>
                 </div>
 
-                <div>
-                    <h3 class="text-lg font-bold text-blue-400 mb-2">3. 명상과 호흡</h3>
-                    <p class="leading-relaxed">
+                <div id="meditation">
+                    <h3 class="text-lg font-bold text-blue-400 mb-2" data-i18n="guide_meditation_title">3. 명상과 호흡</h3>
+                    <p class="leading-relaxed" data-i18n="guide_meditation_desc">
                         파도 소리나 빗소리는 명상 호흡에 좋은 가이드가 됩니다. 
                         파도가 밀려올 때 숨을 들이마시고, 밀려갈 때 숨을 내쉬어 보세요. 
                         규칙적인 자연의 소리에 맞춰 호흡하면 심박수가 안정되고 스트레스가 빠르게 감소합니다.
@@ -61,9 +93,9 @@
                 </div>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold text-white mb-4">📱 모바일 및 오프라인 사용</h2>
-                <p class="leading-relaxed mb-4">
+            <section id="mobile">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4" data-i18n="guide_mobile_title">📱 모바일 및 오프라인 사용</h2>
+                <p class="leading-relaxed mb-4" data-i18n="guide_mobile_desc">
                     본 사이트는 별도의 앱 설치 없이 모바일 웹 브라우저(Chrome, Safari 등)에서 완벽하게 동작합니다. 
                     데이터 절약을 위해 오디오 파일은 최적화되어 있으며, 한 번 로드된 소리는 브라우저 캐시에 저장되어 데이터 소모를 최소화합니다.
                     <br><br>
@@ -74,10 +106,32 @@
         </div>
 
         <div class="mt-12 text-center">
-            <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-lg font-bold transition-colors shadow-lg">
+            <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-lg font-bold transition-colors shadow-lg" data-i18n="btn_guide_listen">
                 나만의 소리 들으러 가기
             </a>
         </div>
     </div>
+    </main>
+
+    <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-8 mt-auto relative z-10">
+        <div class="container mx-auto px-4 text-center text-slate-500 dark:text-slate-400">
+            <p class="mb-2" data-i18n="copyright">&copy; 2026 My ASMR Space. All rights reserved.</p>
+            <div class="flex flex-wrap justify-center gap-4 text-sm mt-4">
+                <a href="about.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_about">제작자 소개</a>
+                <a href="science.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_science">ASMR과 과학</a>
+                <a href="guide.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_guide">이용 가이드</a>
+                <a href="glossary.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_glossary">용어 사전</a>
+                <a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_faq">FAQ</a>
+                <a href="notice.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_notice">공지사항</a>
+                <a href="sitemap.html" class="hover:text-blue-400 transition-colors" data-i18n="sitemap">사이트맵</a>
+                <a href="privacy.html" class="hover:text-blue-400 transition-colors" data-i18n="privacy">개인정보처리방침</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js?v=1.1"></script>
+    <script>
+        window.addEventListener('load', function() { if (window.lucide) lucide.createIcons(); });
+    </script>
 </body>
 </html>
