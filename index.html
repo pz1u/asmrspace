@@ -198,6 +198,9 @@
             });
 
             timerCancel.addEventListener('click', () => {
+                if (typeof Android !== 'undefined') {
+                    Android.cancelTimer();
+                }
                 clearInterval(timerInterval);
                 timerDisplay.textContent = '00:00';
                 selectedMinutes = 0;
@@ -212,6 +215,9 @@
             }
 
             function startTimer(minutes) {
+                if (typeof Android !== 'undefined') {
+                    Android.setTimer(minutes);
+                }
                 clearInterval(timerInterval);
                 const endTime = Date.now() + minutes * 60 * 1000;
                 timerStart.classList.add('hidden');
