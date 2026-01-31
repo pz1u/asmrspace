@@ -29,6 +29,7 @@ const translations = {
         send_btn: "보내기",
         copyright: "&copy; 2026 My ASMR Space. All rights reserved.",
         privacy: "개인정보처리방침",
+        my_saved: "내가 저장한 소리",
         sound_rain: "빗소리",
         sound_fire: "장작불",
         sound_bird: "새소리",
@@ -37,7 +38,9 @@ const translations = {
         sound_keyboard: "타자 소리",
         sound_bug: "풀벌레 소리",
         play: "재생",
-        stop: "정지"
+        stop: "정지",
+        theme_dark: "다크 모드",
+        theme_light: "라이트 모드"
     },
     en: {
         title: "My ASMR Space",
@@ -57,6 +60,7 @@ const translations = {
         send_btn: "Send",
         copyright: "&copy; 2026 My ASMR Space. All rights reserved.",
         privacy: "Privacy Policy",
+        my_saved: "My Saved Sounds",
         sound_rain: "Rain",
         sound_fire: "Fire",
         sound_bird: "Birds",
@@ -65,7 +69,9 @@ const translations = {
         sound_keyboard: "Typing",
         sound_bug: "Crickets",
         play: "Play",
-        stop: "Stop"
+        stop: "Stop",
+        theme_dark: "Dark Mode",
+        theme_light: "Light Mode"
     },
     ja: {
         title: "My ASMR Space",
@@ -85,6 +91,7 @@ const translations = {
         send_btn: "送信",
         copyright: "&copy; 2026 My ASMR Space. All rights reserved.",
         privacy: "プライバシーポリシー",
+        my_saved: "保存したサウンド",
         sound_rain: "雨音",
         sound_fire: "焚き火",
         sound_bird: "鳥のさえずり",
@@ -93,7 +100,9 @@ const translations = {
         sound_keyboard: "タイピング",
         sound_bug: "虫の音",
         play: "再生",
-        stop: "停止"
+        stop: "停止",
+        theme_dark: "ダークモード",
+        theme_light: "ライトモード"
     },
     zh: {
         title: "My ASMR Space",
@@ -113,6 +122,7 @@ const translations = {
         send_btn: "发送",
         copyright: "&copy; 2026 My ASMR Space. All rights reserved.",
         privacy: "隐私政策",
+        my_saved: "我保存的声音",
         sound_rain: "雨声",
         sound_fire: "柴火",
         sound_bird: "鸟鸣声",
@@ -121,7 +131,9 @@ const translations = {
         sound_keyboard: "打字声",
         sound_bug: "虫鸣声",
         play: "播放",
-        stop: "停止"
+        stop: "停止",
+        theme_dark: "深色模式",
+        theme_light: "浅色模式"
     },
     es: {
         title: "My ASMR Space",
@@ -141,6 +153,7 @@ const translations = {
         send_btn: "Enviar",
         copyright: "&copy; 2026 My ASMR Space. All rights reserved.",
         privacy: "Política de Privacidad",
+        my_saved: "Mis sonidos guardados",
         sound_rain: "Lluvia",
         sound_fire: "Fuego",
         sound_bird: "Pájaros",
@@ -149,17 +162,23 @@ const translations = {
         sound_keyboard: "Teclado",
         sound_bug: "Grillos",
         play: "Reprod.",
-        stop: "Parar"
+        stop: "Parar",
+        theme_dark: "Modo Oscuro",
+        theme_light: "Modo Claro"
     }
 };
 
 const soundGrid = document.getElementById('sound-grid');
 const langBtn = document.getElementById('lang-btn');
 const langMenu = document.getElementById('lang-menu');
+const themeBtn = document.getElementById('theme-btn');
+const favFilterBtn = document.getElementById('fav-filter-btn');
 
 // Web Audio API 설정 (모바일 볼륨 제어 문제 해결)
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
+const analyser = audioCtx.createAnalyser(); // 비주얼라이저용 분석기
+analyser.fftSize = 256;
 
 const audioPlayers = {};
 
@@ -172,17 +191,43 @@ else if (userLang.includes('ja')) currentLang = 'ja';
 else if (userLang.includes('zh')) currentLang = 'zh';
 else if (userLang.includes('es')) currentLang = 'es';
 
+// 긍정 에너지 명언 데이터
+const quotes = [
+    "잠시 쉬어가도 괜찮아요. 당신은 충분히 잘하고 있습니다.",
+    "오늘 하루도 당신의 속도대로, 편안하게.",
+    "작은 휴식이 큰 에너지가 됩니다.",
+    "당신의 존재만으로도 세상은 충분히 아름답습니다.",
+    "걱정은 잠시 내려놓고, 지금 이 순간의 소리에 집중해보세요.",
+    "내일은 오늘보다 더 빛날 거예요.",
+    "지친 마음을 토닥여주세요. 수고했어요, 오늘도.",
+    "행복은 강도가 아니라 빈도입니다. 소소한 행복을 느껴보세요.",
+    "당신은 사랑받기 위해 태어난 사람입니다.",
+    "깊은 숨을 들이마시고, 천천히 내쉬어보세요."
+];
+
+// 즐겨찾기 데이터 로드
+let favorites = JSON.parse(localStorage.getItem('asmr_favorites')) || [];
+let showFavoritesOnly = false;
+
 // Initialize Sound Cards
 // 카드 생성 및 오디오 초기화
 soundsData.forEach(sound => {
     const card = document.createElement('div');
-    card.className = 'w-full sm:w-72 bg-slate-800 border-2 border-transparent rounded-xl p-6 flex flex-col items-center gap-4 transition-all duration-300 hover:bg-slate-700';
+    const isFav = favorites.includes(sound.id);
+    card.className = 'w-full sm:w-72 bg-white dark:bg-slate-800 border-2 border-transparent rounded-xl p-6 flex flex-col items-center gap-4 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm';
     card.id = `card-${sound.id}`;
+    card.dataset.id = sound.id; // 필터링용
     card.innerHTML = `
-        <div class="text-blue-400 mb-2"><i data-lucide="${sound.icon}" width="48" height="48"></i></div>
-        <h3 class="text-xl font-bold" data-i18n="sound_${sound.id}">${translations[currentLang]['sound_' + sound.id]}</h3>
+        <div class="w-full flex justify-between items-start">
+            <div class="w-8"></div> <!-- Spacer for centering -->
+            <div class="text-blue-400 mb-2"><i data-lucide="${sound.icon}" width="48" height="48"></i></div>
+            <button class="fav-btn w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors ${isFav ? 'text-red-500' : 'text-slate-300 dark:text-slate-600'}" data-id="${sound.id}">
+                <i data-lucide="heart" class="w-5 h-5 ${isFav ? 'fill-current' : ''}"></i>
+            </button>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white" data-i18n="sound_${sound.id}">${translations[currentLang]['sound_' + sound.id]}</h3>
         <div class="w-full flex flex-col gap-3 mt-2">
-            <button id="btn-${sound.id}" class="w-full py-2 rounded-lg bg-slate-600 hover:bg-blue-500 text-white font-medium transition-colors flex justify-center items-center gap-2"
+            <button id="btn-${sound.id}" class="w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2"
                 onclick="if(typeof Android !== 'undefined') Android.playAudio('https://asmrspace.shop/sounds/${sound.file}')">
                 <i data-lucide="play" width="16"></i> <span data-i18n="play">${translations[currentLang].play}</span>
             </button>
@@ -201,18 +246,24 @@ soundsData.forEach(sound => {
     const track = audioCtx.createMediaElementSource(audio);
     const gainNode = audioCtx.createGain();
     gainNode.gain.value = 0.5; // 초기 볼륨 50%
-    track.connect(gainNode).connect(audioCtx.destination);
+    
+    // 오디오 그래프 연결: Source -> Gain -> Analyser -> Destination
+    track.connect(gainNode);
+    gainNode.connect(analyser);
+    gainNode.connect(audioCtx.destination);
 
     audioPlayers[sound.id] = { audio, gainNode, isPlaying: false };
 
     const playBtn = card.querySelector(`#btn-${sound.id}`);
     const volSlider = card.querySelector(`#vol-${sound.id}`);
+    const favBtn = card.querySelector('.fav-btn');
 
     playBtn.addEventListener('click', () => {
         if (audioCtx.state === 'suspended') audioCtx.resume(); // 브라우저 자동재생 정책 대응
         toggleSound(sound.id);
     });
     volSlider.addEventListener('input', (e) => gainNode.gain.value = e.target.value);
+    favBtn.addEventListener('click', () => toggleFavorite(sound.id, favBtn));
 });
 
 function toggleSound(id) {
@@ -254,7 +305,7 @@ function updateUI(id, isPlaying) {
         btn.setAttribute('onclick', "if(typeof Android !== 'undefined') Android.pauseAudio()");
         card.classList.add('card-active');
     } else {
-        btn.className = 'w-full py-2 rounded-lg bg-slate-600 hover:bg-blue-500 text-white font-medium transition-colors flex justify-center items-center gap-2';
+        btn.className = 'w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2';
         btn.innerHTML = `<i data-lucide="${icon}" width="16"></i> <span data-i18n="${textKey}">${translations[currentLang][textKey]}</span>`;
         if (sound) {
             btn.setAttribute('onclick', `if(typeof Android !== 'undefined') Android.playAudio('https://asmrspace.shop/sounds/${sound.file}')`);
@@ -262,6 +313,122 @@ function updateUI(id, isPlaying) {
         card.classList.remove('card-active');
     }
     lucide.createIcons();
+}
+
+// 즐겨찾기 토글 기능
+function toggleFavorite(id, btn) {
+    const index = favorites.indexOf(id);
+    const icon = btn.querySelector('i');
+    
+    if (index === -1) {
+        favorites.push(id);
+        btn.classList.remove('text-slate-300', 'dark:text-slate-600');
+        btn.classList.add('text-red-500');
+        icon.classList.add('fill-current');
+    } else {
+        favorites.splice(index, 1);
+        btn.classList.remove('text-red-500');
+        btn.classList.add('text-slate-300', 'dark:text-slate-600');
+        icon.classList.remove('fill-current');
+    }
+    localStorage.setItem('asmr_favorites', JSON.stringify(favorites));
+    
+    // 필터가 켜져있으면 즉시 반영
+    if (showFavoritesOnly) {
+        applyFavoriteFilter();
+    }
+}
+
+// 즐겨찾기 필터 적용
+function applyFavoriteFilter() {
+    const cards = document.querySelectorAll('[id^="card-"]');
+    cards.forEach(card => {
+        const id = card.dataset.id;
+        if (showFavoritesOnly && !favorites.includes(id)) {
+            card.classList.add('hidden');
+        } else {
+            card.classList.remove('hidden');
+        }
+    });
+}
+
+favFilterBtn.addEventListener('click', () => {
+    showFavoritesOnly = !showFavoritesOnly;
+    favFilterBtn.classList.toggle('bg-red-50', showFavoritesOnly);
+    favFilterBtn.classList.toggle('dark:bg-red-900/30', showFavoritesOnly);
+    favFilterBtn.classList.toggle('border-red-200', showFavoritesOnly);
+    favFilterBtn.classList.toggle('text-red-500', showFavoritesOnly);
+    applyFavoriteFilter();
+});
+
+// 테마 설정 기능
+function initTheme() {
+    const savedTheme = localStorage.getItem('asmr_theme');
+    if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+    } else {
+        document.documentElement.classList.add('dark');
+    }
+}
+
+themeBtn.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    localStorage.setItem('asmr_theme', isDark ? 'dark' : 'light');
+});
+
+// 오늘의 명언 기능
+function updateQuote() {
+    const quoteEl = document.getElementById('daily-quote');
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    quoteEl.textContent = `"${randomQuote}"`;
+}
+
+// 오디오 비주얼라이저
+function initVisualizer() {
+    const canvas = document.getElementById('visualizer');
+    const ctx = canvas.getContext('2d');
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight * 0.3; // 화면 하단 30%
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function draw() {
+        requestAnimationFrame(draw);
+
+        analyser.getByteFrequencyData(dataArray);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const barWidth = (canvas.width / bufferLength) * 2.5;
+        let barHeight;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+            barHeight = dataArray[i] / 2; // 높이 조절
+
+            // 그라데이션 색상 (테마에 따라 다르게 할 수도 있음)
+            const isDark = document.documentElement.classList.contains('dark');
+            const r = barHeight + (25 * (i / bufferLength));
+            const g = 250 * (i / bufferLength);
+            const b = 50;
+
+            ctx.fillStyle = isDark 
+                ? `rgba(${r},${g},${b}, 0.5)` 
+                : `rgba(${r},${g},${b}, 0.3)`;
+            
+            // 부드러운 곡선 형태를 위해 roundRect 사용하거나 단순 rect
+            ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+
+            x += barWidth + 1;
+        }
+    }
+    draw();
 }
 
 // 언어 변경 기능
@@ -316,3 +483,6 @@ function updateLanguage() {
 
 lucide.createIcons();
 updateLanguage();
+initTheme();
+updateQuote();
+initVisualizer();
