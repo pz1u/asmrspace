@@ -1,3 +1,12 @@
+/* 시스템 다크모드 강제 색상 반전 방지 및 브라우저 UI 테마 동기화 */
+html {
+    color-scheme: light;
+}
+
+html.dark {
+    color-scheme: dark;
+}
+
 /* 볼륨 슬라이더 커스텀 스타일 */
 input[type=range] {
     -webkit-appearance: none;

@@ -1510,7 +1510,7 @@ function updatePlayerBar() {
                 
                 if (player && sound) {
                     const row = document.createElement('div');
-                    row.className = 'flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-3 sm:gap-4 p-3 bg-white/40 dark:bg-slate-800/40 backdrop-blur-md rounded-xl border border-white/20 dark:border-slate-700/30 shadow-sm w-full transition-all hover:bg-white/60 dark:hover:bg-slate-800/60';
+                    row.className = 'flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-3 gap-y-2 sm:gap-4 p-3 bg-white/40 dark:bg-slate-800/40 backdrop-blur-md rounded-xl border border-white/20 dark:border-slate-700/30 shadow-sm w-full transition-all hover:bg-white/60 dark:hover:bg-slate-800/60';
                     
                     // Info (Icon + Name)
                     const infoDiv = document.createElement('div');
@@ -1523,7 +1523,7 @@ function updatePlayerBar() {
 
                     // Controls (Volume + Toggle + Heart)
                     const controlsDiv = document.createElement('div');
-                    controlsDiv.className = 'flex items-center gap-3 w-full sm:w-auto sm:shrink-0 order-3 sm:order-2';
+                    controlsDiv.className = 'flex items-center gap-3 w-full sm:w-auto sm:shrink-0 order-3 sm:order-2 pt-1 sm:pt-0';
 
                     // Volume Slider
                     const volInput = document.createElement('input');
@@ -1533,7 +1533,7 @@ function updatePlayerBar() {
                     volInput.step = '0.01';
                     volInput.value = player.gainNode.gain.value;
                     volInput.title = `${Math.round(player.gainNode.gain.value * 100)}%`;
-                    volInput.className = 'flex-1 sm:flex-none sm:w-24 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-600 accent-blue-500';
+                    volInput.className = 'flex-1 sm:flex-none sm:w-24 min-w-[80px] h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-600 accent-blue-500';
                     volInput.addEventListener('input', (e) => {
                         const val = parseFloat(e.target.value);
                         player.gainNode.gain.value = val;
@@ -1572,7 +1572,7 @@ function updatePlayerBar() {
 
                     // Close Button (Individual)
                     const closeBtn = document.createElement('button');
-                    closeBtn.className = 'p-1 text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 transition-colors order-2 sm:order-3 shrink-0';
+                    closeBtn.className = 'p-1 text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 transition-colors order-2 sm:order-3 shrink-0 ml-2 sm:ml-0';
                     closeBtn.innerHTML = `<i data-lucide="x" class="w-4 h-4"></i>`;
                     closeBtn.onclick = () => {
                         player.audio.pause();
