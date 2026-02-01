@@ -1739,7 +1739,7 @@ async function playMix(mix) {
             
             if (typeof Android !== 'undefined') {
                 const s = soundsData.find(sd => sd.id === soundId);
-                const url = `https://asmrspace.shop/sounds/${s.file}`;
+                const url = `https://asmrspace.shop/${s.file}`;
                 const name = translations[appState.currentLang]['sound_' + soundId];
                 if (typeof Android.playAudio === 'function') Android.playAudio(url, name);
                 if (typeof Android.setVolume === 'function') Android.setVolume(url, volume);
