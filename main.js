@@ -1505,7 +1505,7 @@ function createPlayerRow(id, isMobile) {
     const row = document.createElement('div');
     // Mobile: 2 lines (flex-wrap), PC: 1 line (flex-nowrap)
     if (isMobile) {
-        row.className = 'flex flex-wrap items-center justify-between gap-x-3 gap-y-2 p-3 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md rounded-xl border border-white/20 dark:border-slate-700/30 shadow-sm w-full';
+        row.className = 'flex items-center gap-2 p-3 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md rounded-xl border border-white/20 dark:border-slate-700/30 shadow-sm w-full';
     } else {
         row.className = 'flex items-center justify-between gap-4 p-3 bg-white/40 dark:bg-slate-800/40 backdrop-blur-md rounded-xl border border-white/20 dark:border-slate-700/30 shadow-sm w-full transition-all hover:bg-white/60 dark:hover:bg-slate-800/60';
     }
@@ -1513,7 +1513,7 @@ function createPlayerRow(id, isMobile) {
     // Info (Icon + Name)
     const infoDiv = document.createElement('div');
     infoDiv.className = isMobile 
-        ? 'flex items-center gap-3 overflow-hidden flex-1 min-w-0 order-1'
+        ? 'flex items-center gap-2 overflow-hidden flex-1 min-w-0'
         : 'flex items-center gap-3 overflow-hidden flex-1 min-w-0';
     
     infoDiv.innerHTML = `
@@ -1524,7 +1524,7 @@ function createPlayerRow(id, isMobile) {
     // Controls
     const controlsDiv = document.createElement('div');
     controlsDiv.className = isMobile
-        ? 'flex items-center gap-3 w-full order-3 pt-1'
+        ? 'flex items-center gap-2 shrink-0'
         : 'flex items-center gap-3 shrink-0';
 
     // Volume Slider
@@ -1536,7 +1536,7 @@ function createPlayerRow(id, isMobile) {
     volInput.value = player.gainNode.gain.value;
     volInput.title = `${Math.round(player.gainNode.gain.value * 100)}%`;
     volInput.className = isMobile
-        ? 'flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-600 accent-blue-500'
+        ? 'w-16 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-600 accent-blue-500'
         : 'w-24 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-600 accent-blue-500';
     
     // Unique ID for syncing
@@ -1578,7 +1578,7 @@ function createPlayerRow(id, isMobile) {
     // Close Button (Individual)
     const closeBtn = document.createElement('button');
     closeBtn.className = isMobile
-        ? 'p-1 text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 transition-colors order-2 shrink-0 ml-2'
+        ? 'p-1 text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 transition-colors shrink-0'
         : 'p-1 text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 transition-colors shrink-0';
     closeBtn.innerHTML = `<i data-lucide="x" class="w-4 h-4"></i>`;
     closeBtn.onclick = () => {
