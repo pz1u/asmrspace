@@ -1705,6 +1705,21 @@ function updatePlayerBar() {
     }
 }
 
+// Android 앱에서 호출하여 웹 UI를 초기화하는 함수
+window.resetAllButtons = function() {
+    [...appState.activeSounds].forEach(id => {
+        const player = audioPlayers[id];
+        if (player) {
+            player.audio.pause();
+            player.isPlaying = false;
+            updateUI(id, false);
+        }
+    });
+    appState.activeSounds = [];
+    updatePlayerBar();
+    saveSession();
+};
+
 function stopAllSounds() {
     if (typeof Android !== 'undefined') Android.stopAllAudio();
     // 모든 활성 사운드 정지 및 목록 초기화
