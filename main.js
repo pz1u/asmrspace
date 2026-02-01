@@ -1602,7 +1602,7 @@ function createPlayerRow(id, isMobile) {
 
         // ▼ 안드로이드 앱에 개별 볼륨 신호 전송
         if (window.Android && window.Android.setVolume) {
-            const soundFileUrl = `https://asmrspace.shop/sounds/${sound.file}`;
+            const soundFileUrl = `https://asmrspace.shop/${sound.file}`;
             window.Android.setVolume(soundFileUrl, val);
         }
     });
@@ -1646,6 +1646,10 @@ function createPlayerRow(id, isMobile) {
         : 'p-1 text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 transition-colors shrink-0';
     closeBtn.innerHTML = `<i data-lucide="x" class="w-4 h-4"></i>`;
     closeBtn.onclick = () => {
+        // ▼ 안드로이드 앱에 정지 신호 전송 (X 버튼 클릭 시)
+        if (player.isPlaying && window.Android && window.Android.removeAudio) {
+            window.Android.removeAudio(`https://asmrspace.shop/${sound.file}`);
+        }
         player.audio.pause();
         player.isPlaying = false;
         const idx = appState.activeSounds.indexOf(id);
