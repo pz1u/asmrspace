@@ -1154,8 +1154,7 @@ function initSoundCards() {
             <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white" data-i18n="sound_${sound.id}">${translations[appState.currentLang]['sound_' + sound.id]}</h3>
             <div class="flex gap-2 mb-2 flex-wrap justify-center">${tagsHtml}</div>
             <div class="w-full flex flex-col gap-3 mt-2">
-                <button id="btn-${sound.id}" class="w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2"
-                    onclick="if(typeof Android !== 'undefined') Android.playAudio('https://asmrspace.shop/sounds/${sound.file}', '${translations[appState.currentLang]['sound_' + sound.id]}')">
+                <button id="btn-${sound.id}" class="w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2">
                     <i data-lucide="play" width="16"></i> <span data-i18n="play">${translations[appState.currentLang].play}</span>
                 </button>
             </div>`;
@@ -1580,6 +1579,10 @@ function createPlayerRow(id, isMobile) {
         const otherType = isMobile ? 'pc' : 'mobile';
         const otherSlider = document.getElementById(`vol-${otherType}-${id}`);
         if (otherSlider) otherSlider.value = val;
+
+        if (typeof Android !== 'undefined' && typeof Android.setVolume === 'function') {
+            Android.setVolume(`https://asmrspace.shop/sounds/${sound.file}`, val);
+        }
     });
     volInput.addEventListener('change', saveSession);
 
@@ -1712,6 +1715,14 @@ async function playMix(mix) {
             if (mSlider) mSlider.value = volume;
             if (pSlider) pSlider.value = volume;
             
+            if (typeof Android !== 'undefined') {
+                const s = soundsData.find(sd => sd.id === soundId);
+                const url = `https://asmrspace.shop/sounds/${s.file}`;
+                const name = translations[appState.currentLang]['sound_' + soundId];
+                if (typeof Android.playAudio === 'function') Android.playAudio(url, name);
+                if (typeof Android.setVolume === 'function') Android.setVolume(url, volume);
+            }
+            
             try {
                 await player.audio.play();
                 player.isPlaying = true;
@@ -1728,15 +1739,25 @@ async function playMix(mix) {
 
 async function toggleSound(id) {
     const player = audioPlayers[id];
+    const sound = soundsData.find(s => s.id === id);
+    const url = `https://asmrspace.shop/sounds/${sound.file}`;
     
     if (player.isPlaying) {
         // 재생 중이면 정지 (목록에서는 유지, X 버튼으로만 제거)
+        if (typeof Android !== 'undefined' && typeof Android.removeAudio === 'function') {
+            Android.removeAudio(url);
+        }
         
         player.audio.pause();
         player.isPlaying = false;
         updateUI(id, false);
     } else {
         // 정지 상태면 재생하고 activeSounds에 추가
+        if (typeof Android !== 'undefined' && typeof Android.playAudio === 'function') {
+            const name = translations[appState.currentLang]['sound_' + id];
+            Android.playAudio(url, name);
+        }
+
         if (!appState.activeSounds.includes(id)) appState.activeSounds.push(id);
         try {
             await player.audio.play();
@@ -1796,17 +1817,10 @@ function updateUI(id, isPlaying) {
     if (isPlaying) {
         btn.className = 'w-full py-2 rounded-lg bg-sky-400 hover:bg-sky-500 text-white font-medium transition-colors flex justify-center items-center gap-2';
         btn.innerHTML = `<i data-lucide="${icon}" width="16"></i> <span data-i18n="${textKey}">${translations[appState.currentLang][textKey]}</span>`;
-        if (sound) {
-            btn.setAttribute('onclick', `if(typeof Android !== 'undefined') Android.removeAudio('https://asmrspace.shop/sounds/${sound.file}')`);
-        }
         card.classList.add('card-active');
     } else {
         btn.className = 'w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2';
         btn.innerHTML = `<i data-lucide="${icon}" width="16"></i> <span data-i18n="${textKey}">${translations[appState.currentLang][textKey]}</span>`;
-        if (sound) {
-            const name = translations[appState.currentLang]['sound_' + sound.id];
-            btn.setAttribute('onclick', `if(typeof Android !== 'undefined') Android.playAudio('https://asmrspace.shop/sounds/${sound.file}', '${name}')`);
-        }
         card.classList.remove('card-active');
     }
     updatePlayerBar();
