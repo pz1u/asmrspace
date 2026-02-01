@@ -1707,16 +1707,38 @@ function updatePlayerBar() {
 
 // Android 앱에서 호출하여 웹 UI를 초기화하는 함수
 window.resetAllButtons = function() {
-    [...appState.activeSounds].forEach(id => {
-        const player = audioPlayers[id];
-        if (player) {
-            player.audio.pause();
-            player.isPlaying = false;
-            updateUI(id, false);
+    console.log("Android signal received: Resetting all buttons...");
+    
+    // 1. 모든 소리 중지
+    Object.values(audioPlayers).forEach(player => {
+        player.audio.pause();
+        player.audio.currentTime = 0;
+        player.isPlaying = false;
+    });
+
+    // 2. 모든 카드 UI 초기화 (재생 중 표시 제거)
+    soundsData.forEach(sound => {
+        const btn = document.getElementById(`btn-${sound.id}`);
+        const card = document.getElementById(`card-${sound.id}`);
+        if (btn) {
+            btn.className = 'w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2';
+            btn.innerHTML = `<i data-lucide="play" width="16"></i> <span>${translations[appState.currentLang].play}</span>`;
+        }
+        if (card) {
+            card.classList.remove('card-active');
         }
     });
+
+    // 3. 앱 상태 초기화
     appState.activeSounds = [];
+    
+    // 4. 하단 플레이어 바 숨기기
     updatePlayerBar();
+    
+    // 5. 아이콘 다시 그리기 (Lucide)
+    if (window.lucide) window.lucide.createIcons();
+    
+    // 6. 세션 저장
     saveSession();
 };
 
