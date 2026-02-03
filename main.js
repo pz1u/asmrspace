@@ -2534,13 +2534,12 @@ window.addEventListener('resize', () => {
 
 function initTheme() {
     const savedTheme = safeStorage.getStr('asmr_theme', null);
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    // 저장된 테마가 'dark'이거나, 저장된 테마가 없고 시스템이 다크 모드일 때
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-        document.documentElement.classList.add('dark');
-    } else {
+    // 저장된 테마가 'light'가 아니면 다크 모드 (기본값: 다크)
+    if (savedTheme === 'light') {
         document.documentElement.classList.remove('dark');
+    } else {
+        document.documentElement.classList.add('dark');
     }
 }
 

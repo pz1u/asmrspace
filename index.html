@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -139,8 +139,8 @@
         </div>
     </noscript>
     <header class="p-6 text-center relative z-50">
-        <div class="flex justify-end mb-4 sm:absolute sm:top-4 sm:right-4 sm:mb-0 gap-2" style="min-height: 48px;">
-            <button id="theme-btn" aria-label="다크 모드 전환" class="flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+        <div class="flex items-center justify-end mb-4 sm:absolute sm:top-4 sm:right-4 sm:mb-0 gap-2" style="min-height: 48px;">
+            <button id="theme-btn" aria-label="다크 모드 전환" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                 <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
                 <span class="hidden dark:block text-sm font-medium" data-i18n="theme_dark">Dark Mode</span>
                 <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
@@ -669,6 +669,9 @@
         </div>
     </div>
     <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
     function acceptCookies() {
       gtag('consent', 'update', {
         'ad_storage': 'granted',
@@ -700,7 +703,6 @@
             
             gaScript.onload = function() {
                 window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
                 
                 // Consent Mode v2 Default
                 gtag('consent', 'default', {
