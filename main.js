@@ -1319,6 +1319,9 @@ function initSoundSearch() {
 // Initialize Sound Cards
 function initSoundCards() {
     if (!soundGrid) return;
+    
+    // 스켈레톤 제거
+    document.querySelectorAll('.skeleton-card').forEach(el => el.remove());
     soundGrid.innerHTML = '';
 
     soundsData.forEach(sound => {

@@ -125,3 +125,28 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 .sound-card {
     transition: transform 0.3s, opacity 0.3s;
 }
+
+/* 아이콘 크기 고정으로 CLS 방지 */
+[data-lucide] {
+    display: inline-block !important;
+}
+.w-4[data-lucide], .h-4[data-lucide] {
+    width: 1rem !important;
+    height: 1rem !important;
+}
+.w-5[data-lucide], .h-5[data-lucide] {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+}
+.w-6[data-lucide], .h-6[data-lucide] {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+.w-8[data-lucide], .h-8[data-lucide] {
+    width: 2rem !important;
+    height: 2rem !important;
+}
+.w-12[data-lucide], .h-12[data-lucide] {
+    width: 3rem !important;
+    height: 3rem !important;
+}
