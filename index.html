@@ -3,7 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' 
+        https://www.googletagmanager.com 
+        https://www.google-analytics.com
+        https://pagead2.googlesyndication.com
+        https://unpkg.com
+        https://ep1.adtrafficquality.google
+        https://ep2.adtrafficquality.google
+        https://static.cloudflareinsights.com;
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: https:;
+      connect-src 'self' https://www.google-analytics.com;
+      frame-src https://googleads.g.doubleclick.net;
+      object-src 'none';
+      require-trusted-types-for 'script';
+    ">
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups">
     <title>My ASMR Space | Free Sounds for Sleep & Focus</title>
     <meta name="description" content="Free ASMR service for sleep and focus, available on App and Web. Listen to rain, fire, typing sounds, and white noise. 애플리케이션과 웹에서 즐기는 잠 잘 오는 무료 ASMR입니다. 빗소리, 장작불 등 백색소음을 무료로 들어보세요.">
     <meta name="keywords" content="ASMR, White Noise, Sleep Sounds, Focus Music, Rain Sounds, Fire Sounds, 백색소음, 수면유도, 빗소리, 장작불">
@@ -38,7 +55,8 @@
 
     <!-- Performance Optimization: Resource Hints -->
     <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="preconnect" href="https://www.google.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
     <link rel="preconnect" href="https://unpkg.com">
 
     <!-- Google tag (gtag.js) -->
@@ -46,17 +64,49 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      
+      // Consent Mode v2 Default
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied'
+      });
+
       gtag('js', new Date());
 
-      gtag('config', 'G-BMKFVMLSN6');
+      gtag('config', 'G-BMKFVMLSN6', { 'send_page_view': false });
+
+      window.addEventListener('load', function() {
+          gtag('event', 'page_view');
+      });
+
+      // Trusted Types Policy
+      if (window.trustedTypes && trustedTypes.createPolicy) {
+        trustedTypes.createPolicy('default', {
+          createHTML: (string) => string,
+          createScriptURL: (string) => string,
+          createScript: (string) => string,
+        });
+      }
     </script>
     <!-- Google AdSense -->
     <meta name="google-adsense-account" content="ca-pub-5194430757582201">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5194430757582201"
-     crossorigin="anonymous"></script>
+    <script>
+    window.addEventListener('load', function() {
+      const script = document.createElement('script');
+      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5194430757582201';
+      script.async = true;
+      script.crossOrigin = "anonymous";
+      script.setAttribute('data-ad-frequency-hint', '30s');
+      document.body.appendChild(script);
+    });
+    </script>
     <meta name="naver-site-verification" content="a225d2d5c78d018b2a2026c233d89322d3181253" />
     <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="./output.css">
+    <style>body { margin: 0; font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }</style>
+    <link rel="preload" href="./output.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="./output.css"></noscript>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest" defer></script>
 
@@ -615,6 +665,42 @@
                     });
             });
         }
+    </script>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-slate-900/95 text-white p-6 z-[9999] backdrop-blur-md border-t border-slate-700 hidden">
+        <div class="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-slate-300 text-center sm:text-left">
+                이 사이트는 사용자 경험 개선과 광고 제공을 위해 쿠키를 사용합니다.<br class="hidden sm:block">
+                계속 사용함으로써 쿠키 사용에 동의하게 됩니다.
+            </p>
+            <div class="flex gap-3">
+                <button onclick="rejectCookies()" class="px-4 py-2 text-sm text-slate-400 hover:text-white transition-colors">거부</button>
+                <button onclick="acceptCookies()" class="px-6 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold transition-colors shadow-lg shadow-blue-500/30">동의</button>
+            </div>
+        </div>
+    </div>
+    <script>
+    function acceptCookies() {
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+      document.getElementById('cookie-consent').classList.add('hidden');
+      localStorage.setItem('cookieConsent', 'granted');
+    }
+
+    function rejectCookies() {
+      document.getElementById('cookie-consent').classList.add('hidden');
+      localStorage.setItem('cookieConsent', 'denied');
+    }
+
+    // 페이지 로드 시 확인
+    if(!localStorage.getItem('cookieConsent')) {
+      document.getElementById('cookie-consent').classList.remove('hidden');
+    }
     </script>
 </body>
 </html>
