@@ -1,0 +1,12 @@
+{
+  "name": "asmr-space",
+  "version": "1.0.0",
+  "scripts": {
+    "init": "npx tailwindcss init",
+    "dev": "npx tailwindcss -i ./input.css -o ./output.css --watch",
+    "build": "npx tailwindcss -i ./input.css -o ./output.css --minify"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.18"
+  }
+}

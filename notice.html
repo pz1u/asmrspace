@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko" class="dark">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>공지사항 및 업데이트 소식 - My ASMR Space</title>
     <meta name="description" content="My ASMR Space의 새로운 기능 추가, 사운드 업데이트 등 최신 소식을 전해드립니다.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🎧</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-    </script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 role=%22img%22 aria-label=%22Headphones%22>🎧</text></svg>">
+    <link href="output.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest" defer></script>
     <link rel="stylesheet" href="style.css?v=1.1">
 </head>
@@ -48,10 +44,30 @@
             
             <!-- Update Item -->
             <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                <div class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 group-[.is-active]:bg-blue-500 text-slate-500 dark:text-slate-300 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                <div class="timeline-dot flex items-center justify-center w-12 h-12 rounded-full border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-800 group-[.is-active]:bg-blue-500 text-slate-500 dark:text-slate-300 group-[.is-active]:text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 relative">
+                    <span class="absolute inset-0 rounded-full animate-ping bg-blue-500 opacity-75 group-[.is-active]:block hidden"></span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" /></svg>
                 </div>
-                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-100 dark:bg-slate-700/50 p-6 rounded-xl border border-slate-200 dark:border-slate-600 shadow-sm">
+                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-slate-50 dark:bg-slate-700/30 p-6 rounded-2xl border border-slate-200 dark:border-slate-600 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group-[.is-active]:border-blue-200 dark:group-[.is-active]:border-blue-800 group-[.is-active]:bg-blue-50/30 dark:group-[.is-active]:bg-blue-900/10">
+                    <div class="flex items-center justify-between space-x-2 mb-1">
+                        <span class="font-bold text-slate-900 dark:text-white" data-i18n="notice_v3_title">v1.3.0 사운드 업데이트</span>
+                        <time class="font-mono text-xs text-slate-500 dark:text-slate-400" data-i18n="notice_v3_date">2026.02.03</time>
+                    </div>
+                    <div class="text-slate-600 dark:text-slate-300">
+                        <p class="mb-2 font-semibold text-blue-600 dark:text-blue-400" data-i18n="notice_v3_desc">새로운 힐링 사운드 추가</p>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li data-i18n="notice_v3_list1">연필 소리, 우주 소리 추가</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Update Item -->
+            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                <div class="timeline-dot flex items-center justify-center w-12 h-12 rounded-full border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-800 group-[.is-active]:bg-blue-500 text-slate-500 dark:text-slate-300 group-[.is-active]:text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" /></svg>
+                </div>
+                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-slate-50 dark:bg-slate-700/30 p-6 rounded-2xl border border-slate-200 dark:border-slate-600 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
                     <div class="flex items-center justify-between space-x-2 mb-1">
                         <span class="font-bold text-slate-900 dark:text-white" data-i18n="notice_v2_title">v1.2.0 플레이어 바 업데이트</span>
                         <time class="font-mono text-xs text-slate-500 dark:text-slate-400" data-i18n="notice_v2_date">2026.02.01</time>
@@ -68,10 +84,10 @@
 
             <!-- Update Item -->
             <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                <div class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 group-[.is-active]:bg-blue-500 text-slate-500 dark:text-slate-300 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                <div class="timeline-dot flex items-center justify-center w-12 h-12 rounded-full border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-800 group-[.is-active]:bg-blue-500 text-slate-500 dark:text-slate-300 group-[.is-active]:text-white shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 relative">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" /></svg>
                 </div>
-                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-100 dark:bg-slate-700/50 p-6 rounded-xl border border-slate-200 dark:border-slate-600 shadow-sm">
+                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-slate-50 dark:bg-slate-700/30 p-6 rounded-2xl border border-slate-200 dark:border-slate-600 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
                     <div class="flex items-center justify-between space-x-2 mb-1">
                         <span class="font-bold text-slate-900 dark:text-white" data-i18n="notice_v1_title">v1.1.0 통합 업데이트</span>
                         <time class="font-mono text-xs text-slate-500 dark:text-slate-400" data-i18n="notice_v1_date">2026.01.31</time>
@@ -88,10 +104,10 @@
 
             <!-- Update Item -->
             <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                <div class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-300 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                <div class="timeline-dot flex items-center justify-center w-12 h-12 rounded-full border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-300 shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 relative">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 5a1 1 0 011-1h6a1 1 0 011 1v5a1 1 0 01-1 1H4a1 1 0 01-1-1V9zm8 0a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1h-2a1 1 0 01-1-1V9z" clip-rule="evenodd" /></svg>
                 </div>
-                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-100 dark:bg-slate-700/50 p-6 rounded-xl border border-slate-200 dark:border-slate-600 shadow-sm">
+                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-slate-50 dark:bg-slate-700/30 p-6 rounded-2xl border border-slate-200 dark:border-slate-600 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
                     <div class="flex items-center justify-between space-x-2 mb-1">
                         <span class="font-bold text-slate-900 dark:text-white" data-i18n="notice_open_title">My ASMR Space 오픈!</span>
                         <time class="font-mono text-xs text-slate-500 dark:text-slate-400" data-i18n="notice_open_date">2026.01.30</time>
@@ -115,7 +131,7 @@
     </main>
 
     <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-8 mt-auto relative z-10">
-        <div class="container mx-auto px-4 text-center text-slate-500 dark:text-slate-400">
+        <div class="container mx-auto px-4 text-center text-slate-600 dark:text-slate-300">
             <p class="mb-2" data-i18n="copyright">&copy; 2026 My ASMR Space. All rights reserved.</p>
             <div class="flex flex-wrap justify-center gap-4 text-sm mt-4">
                 <a href="about.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_about">제작자 소개</a>
@@ -130,7 +146,7 @@
         </div>
     </footer>
 
-    <script src="main.js?v=1.1"></script>
+    <script src="main.js?v=1.1" defer></script>
     <script>
         window.addEventListener('load', function() { if (window.lucide) lucide.createIcons(); });
     </script>

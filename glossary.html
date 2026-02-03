@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko" class="dark">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>ASMR 용어 사전 - My ASMR Space</title>
     <meta name="description" content="ASMR, 백색소음, 트리거 등 힐링 사운드 관련 용어를 알기 쉽게 설명해 드립니다.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🎧</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-    </script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 role=%22img%22 aria-label=%22Headphones%22>🎧</text></svg>">
+    <link href="output.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest" defer></script>
     <link rel="stylesheet" href="style.css?v=1.1">
 </head>
@@ -88,7 +84,7 @@
     </main>
 
     <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-8 mt-auto relative z-10">
-        <div class="container mx-auto px-4 text-center text-slate-500 dark:text-slate-400">
+        <div class="container mx-auto px-4 text-center text-slate-600 dark:text-slate-300">
             <p class="mb-2" data-i18n="copyright">&copy; 2026 My ASMR Space. All rights reserved.</p>
             <div class="flex flex-wrap justify-center gap-4 text-sm mt-4">
                 <a href="about.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_about">제작자 소개</a>
@@ -103,7 +99,7 @@
         </div>
     </footer>
 
-    <script src="main.js?v=1.1"></script>
+    <script src="main.js?v=1.1" defer></script>
     <script>
         window.addEventListener('load', function() { if (window.lucide) lucide.createIcons(); });
     </script>

@@ -6,7 +6,9 @@ const soundsData = [
     { id: 'book', icon: 'book', file: 'book.mp3', tags: ['study', 'focus', 'calm'] },
     { id: 'wave', icon: 'waves', file: 'wave.mp3', tags: ['nature', 'sleep', 'relax'] },
     { id: 'keyboard', icon: 'keyboard', file: 'keyboard.mp3', tags: ['work', 'focus', 'study'] },
-    { id: 'bug', icon: 'bug', file: 'bug.mp3', tags: ['nature', 'night', 'sleep'] }
+    { id: 'bug', icon: 'bug', file: 'bug.mp3', tags: ['nature', 'night', 'sleep'] },
+    { id: 'space', icon: 'rocket', file: 'space.mp3', tags: ['nature', 'sleep', 'relax', 'night'] },
+    { id: 'pencil', icon: 'pencil', file: 'pencil.mp3', tags: ['study', 'work', 'focus'] }
 ];
 
 // 추천 믹스 데이터
@@ -55,6 +57,8 @@ const translations = {
         msg_delete_confirm: "정말 삭제하시겠습니까?",
         search_placeholder: "믹스 검색...",
         msg_saved: "저장되었습니다.",
+        search_sound_placeholder: "소리 검색 (이름, 태그)...",
+        msg_no_result: "검색 결과가 없습니다.",
         timer_set: "{minutes}분 뒤에 소리가 꺼집니다.",
         timer_added: "{minutes}분이 추가되었습니다.",
         timer_canceled: "타이머가 취소되었습니다.",
@@ -110,6 +114,8 @@ const translations = {
         sound_wave: "파도 소리",
         sound_keyboard: "타자 소리",
         sound_bug: "풀벌레 소리",
+        sound_space: "우주 소리",
+        sound_pencil: "연필 소리",
 
         // 메인 페이지 (Home)
         asmr_title: "ASMR과 백색소음이란?",
@@ -181,6 +187,10 @@ const translations = {
         glossary_notalking_desc: "말소리 없이 오직 사물이나 자연의 소리만으로 구성된 ASMR 콘텐츠를 의미합니다.",
 
         // 공지사항 (Notice)
+        notice_v3_title: "v1.3.0 사운드 업데이트",
+        notice_v3_date: "2026.02.03",
+        notice_v3_desc: "새로운 힐링 사운드 추가",
+        notice_v3_list1: "연필 소리, 우주 소리 추가",
         notice_v2_title: "v1.2.0 플레이어 바 업데이트",
         notice_v2_date: "2026.02.01",
         notice_v2_desc: "플레이어 바 디자인 및 편의성 개선",
@@ -278,6 +288,8 @@ const translations = {
         msg_delete_confirm: "Are you sure you want to delete?",
         search_placeholder: "Search mixes...",
         msg_saved: "Saved successfully.",
+        search_sound_placeholder: "Search sounds (name, tag)...",
+        msg_no_result: "No search results found.",
         timer_set: "Sound will turn off in {minutes} minutes.",
         timer_added: "{minutes} minutes added.",
         timer_canceled: "Timer has been canceled.",
@@ -327,6 +339,8 @@ const translations = {
         sound_wave: "Waves",
         sound_keyboard: "Typing",
         sound_bug: "Crickets",
+        sound_space: "Space",
+        sound_pencil: "Pencil",
 
         // Home
         asmr_title: "What is ASMR & White Noise?",
@@ -398,6 +412,10 @@ const translations = {
         glossary_notalking_desc: "ASMR content consisting only of object or nature sounds without speech. Suitable for users who are sensitive to human voices or want to focus purely on sound without processing linguistic information.",
 
         // Notice, FAQ, etc.
+        notice_v3_title: "v1.3.0 Sound Update",
+        notice_v3_date: "2026.02.03",
+        notice_v3_desc: "New healing sounds added",
+        notice_v3_list1: "Added Pencil sound and Space sound",
         notice_v2_title: "v1.2.0 Player Bar Major Update",
         notice_v2_date: "2026.02.01",
         notice_v2_desc: "Player bar design and usability improvements",
@@ -492,6 +510,8 @@ const translations = {
         msg_delete_confirm: "本当に削除しますか？",
         search_placeholder: "ミックスを検索...",
         msg_saved: "保存しました。",
+        search_sound_placeholder: "サウンド検索 (名前, タグ)...",
+        msg_no_result: "検索結果がありません。",
         timer_set: "{minutes}分後に音が消えます。",
         timer_added: "{minutes}分が追加されました。",
         timer_canceled: "タイマーがキャンセルされました。",
@@ -539,6 +559,8 @@ const translations = {
         sound_wave: "波の音",
         sound_keyboard: "タイピング",
         sound_bug: "虫の音",
+        sound_space: "宇宙の音",
+        sound_pencil: "鉛筆の音",
 
         asmr_title: "ASMRとホワイトノイズとは？",
         asmr_desc: "ASMRは心理的な安定を誘導する音です。雨音や焚き火などのホワイトノイズは、騒音を遮断し、集中力や睡眠を助けます。",
@@ -604,6 +626,10 @@ const translations = {
         glossary_notalking_title: "ノートーキング (No Talking)",
         glossary_notalking_desc: "話し声がなく、物音や自然音のみで構成されたASMRコンテンツを意味します。人の声に敏感だったり、言語的な情報処理なしに純粋に音だけに集中したいユーザーに適しています。",
 
+        notice_v3_title: "v1.3.0 サウンドアップデート",
+        notice_v3_date: "2026.02.03",
+        notice_v3_desc: "新しいヒーリングサウンドの追加",
+        notice_v3_list1: "鉛筆の音、宇宙の音を追加",
         notice_v2_title: "v1.2.0 プレーヤーバー大型アップデート",
         notice_v2_date: "2026.02.01",
         notice_v2_desc: "プレーヤーバーのデザインと利便性の向上",
@@ -697,6 +723,8 @@ const translations = {
         msg_delete_confirm: "确定要删除吗？",
         search_placeholder: "搜索混音...",
         msg_saved: "保存成功。",
+        search_sound_placeholder: "搜索声音 (名称, 标签)...",
+        msg_no_result: "未找到搜索结果。",
         timer_set: "声音将在{minutes}分钟后关闭。",
         timer_added: "已添加 {minutes} 分钟。",
         timer_canceled: "计时器已取消。",
@@ -744,6 +772,8 @@ const translations = {
         sound_wave: "海浪声",
         sound_keyboard: "打字声",
         sound_bug: "虫鸣声",
+        sound_space: "宇宙声",
+        sound_pencil: "铅笔声",
 
         asmr_title: "什么是 ASMR？",
         asmr_desc: "ASMR 是一种诱导心理稳定的声音。雨声、打字声等白噪音有助于掩盖噪音，提高注意力或助眠。",
@@ -809,6 +839,10 @@ const translations = {
         glossary_notalking_title: "无人声 (No Talking)",
         glossary_notalking_desc: "没有说话声，仅由物体或自然声音组成的 ASMR 内容。适合对人声敏感或想在没有语言信息处理的情况下纯粹专注于声音的用户。",
 
+        notice_v3_title: "v1.3.0 声音更新",
+        notice_v3_date: "2026.02.03",
+        notice_v3_desc: "添加新的治愈声音",
+        notice_v3_list1: "添加铅笔声和宇宙声",
         notice_v2_title: "v1.2.0 播放栏重大更新",
         notice_v2_date: "2026.02.01",
         notice_v2_desc: "播放栏设计与易用性改进",
@@ -902,6 +936,8 @@ const translations = {
         msg_delete_confirm: "¿Estás seguro de que quieres eliminar?",
         search_placeholder: "Buscar mezclas...",
         msg_saved: "Guardado exitosamente.",
+        search_sound_placeholder: "Buscar sonidos (nombre, etiqueta)...",
+        msg_no_result: "No se encontraron resultados.",
         timer_set: "El sonido se apagará en {minutes} minutos.",
         timer_added: "Se añadieron {minutes} minutos.",
         timer_canceled: "El temporizador ha sido cancelado.",
@@ -949,6 +985,8 @@ const translations = {
         sound_wave: "Olas",
         sound_keyboard: "Teclado",
         sound_bug: "Grillos",
+        sound_space: "Espacio",
+        sound_pencil: "Lápiz",
 
         asmr_title: "¿Qué es ASMR y Ruido Blanco?",
         asmr_desc: "ASMR induce estabilidad psicológica. El ruido blanco como la lluvia ayuda a cubrir ruidos molestos, mejorando la concentración y el sueño.",
@@ -1014,6 +1052,10 @@ const translations = {
         glossary_notalking_title: "Sin Hablar (No Talking)",
         glossary_notalking_desc: "Contenido de ASMR que consiste solo en sonidos de objetos o naturaleza sin habla. Adecuado para usuarios que son sensibles a las voces humanas o quieren concentrarse puramente en el sonido sin procesar información lingüística.",
 
+        notice_v3_title: "v1.3.0 Actualización de sonido",
+        notice_v3_date: "2026.02.03",
+        notice_v3_desc: "Nuevos sonidos curativos añadidos",
+        notice_v3_list1: "Se agregaron sonido de lápiz y sonido espacial",
         notice_v2_title: "v1.2.0 Gran actualización de la barra de reproducción",
         notice_v2_date: "2026.02.01",
         notice_v2_desc: "Mejoras en el diseño y usabilidad de la barra de reproducción",
@@ -1104,19 +1146,38 @@ const audioCtx = new AudioContext();
 
 // 오디오 버퍼 캐시 (무손실 루프를 위해 디코딩된 데이터 저장)
 const audioBuffers = {};
+const audioLoadPromises = {}; // 중복 로딩 방지용 Promise 캐시
 
 async function loadAudioBuffer(url) {
     if (audioBuffers[url]) return audioBuffers[url];
-    try {
-        const response = await fetch(url);
-        const arrayBuffer = await response.arrayBuffer();
-        const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-        audioBuffers[url] = audioBuffer;
-        return audioBuffer;
-    } catch (e) {
-        console.error("Audio load failed:", e);
-        return null;
-    }
+    if (audioLoadPromises[url]) return audioLoadPromises[url];
+
+    const loadTask = (async () => {
+        try {
+            const response = await fetch(url);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+            audioBuffers[url] = audioBuffer;
+            delete audioLoadPromises[url];
+            return audioBuffer;
+        } catch (e) {
+            console.error("Audio load failed:", e);
+            delete audioLoadPromises[url];
+            return null;
+        }
+    })();
+
+    audioLoadPromises[url] = loadTask;
+    return loadTask;
+}
+
+// 앱 시작 시 모든 소리 미리 로딩 (Pre-decoding)
+async function preloadAllSounds() {
+    console.log("Starting audio preload...");
+    const promises = soundsData.map(sound => loadAudioBuffer(sound.file));
+    await Promise.all(promises);
+    console.log("All sounds preloaded 🚀");
+    appState.isLoaded = true;
 }
 
 const audioPlayers = {};
@@ -1128,7 +1189,9 @@ const appState = {
     customMixes: [],
     showFavoritesOnly: false,
     activeTag: null,
-    activeSounds: []
+    activeSounds: [],
+    isLoaded: false,
+    soundSearchQuery: ''
 };
 
 // Helper: Safe LocalStorage
@@ -1186,7 +1249,12 @@ function restoreSession() {
 }
 
 // 초기 상태 로드
-let savedLang = safeStorage.getStr('asmr_lang', null);
+// 1. URL 파라미터 확인 (SEO 및 공유 링크용)
+const urlParams = new URLSearchParams(window.location.search);
+const langParam = urlParams.get('lang');
+
+let savedLang = langParam || safeStorage.getStr('asmr_lang', null);
+
 if (!savedLang) {
     const userLang = navigator.language || navigator.userLanguage;
     if (userLang.includes('ko')) savedLang = 'ko';
@@ -1198,6 +1266,55 @@ if (!savedLang) {
 appState.currentLang = savedLang;
 appState.favorites = safeStorage.get('asmr_favorites', []);
 appState.customMixes = safeStorage.get('asmr_custom_mixes', []);
+
+// 소리 검색창 생성 및 초기화
+function initSoundSearch() {
+    if (!soundGrid) return;
+    if (document.getElementById('sound-search-container')) return;
+
+    const container = document.createElement('div');
+    container.id = 'sound-search-container';
+    container.className = 'w-full max-w-md mx-auto mb-6 relative px-4 sm:px-0';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'sound-search-input';
+    input.className = 'w-full px-5 py-3 pl-12 pr-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all shadow-sm';
+    input.setAttribute('data-i18n-placeholder', 'search_sound_placeholder');
+    input.placeholder = translations[appState.currentLang].search_sound_placeholder;
+
+    const icon = document.createElement('div');
+    icon.className = 'absolute left-8 sm:left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none';
+    icon.innerHTML = '<i data-lucide="search" class="w-5 h-5"></i>';
+
+    const clearBtn = document.createElement('button');
+    clearBtn.id = 'search-clear-btn';
+    clearBtn.className = 'absolute right-8 sm:right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-full transition-colors hidden';
+    clearBtn.innerHTML = '<i data-lucide="x" class="w-4 h-4"></i>';
+    clearBtn.setAttribute('aria-label', 'Clear search');
+
+    container.appendChild(input);
+    container.appendChild(icon);
+    container.appendChild(clearBtn);
+    soundGrid.parentNode.insertBefore(container, soundGrid);
+
+    clearBtn.addEventListener('click', () => {
+        input.value = '';
+        appState.soundSearchQuery = '';
+        clearBtn.classList.add('hidden');
+        input.focus();
+        applyFilters();
+    });
+
+    input.addEventListener('input', (e) => {
+        appState.soundSearchQuery = e.target.value.trim();
+        if (appState.soundSearchQuery) clearBtn.classList.remove('hidden');
+        else clearBtn.classList.add('hidden');
+        applyFilters();
+    });
+    
+    lucide.createIcons();
+}
 
 // Initialize Sound Cards
 function initSoundCards() {
@@ -1219,7 +1336,7 @@ function initSoundCards() {
             <div class="w-full flex justify-between items-start">
                 <div class="w-8"></div>
                 <div class="text-blue-400 mb-2"><i data-lucide="${sound.icon}" class="w-8 h-8 sm:w-12 sm:h-12"></i></div>
-                <button class="fav-btn w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors ${isFav ? 'text-red-500' : 'text-slate-300 dark:text-slate-600'}" data-id="${sound.id}">
+                <button class="fav-btn w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors ${isFav ? 'text-red-500' : 'text-slate-400 dark:text-slate-400'}" data-id="${sound.id}">
                     <i data-lucide="heart" class="w-5 h-5 ${isFav ? 'fill-current' : ''}"></i>
                 </button>
             </div>
@@ -1261,6 +1378,18 @@ function initSoundCards() {
         favBtn.addEventListener('click', () => toggleFavorite(sound.id));
     });
 
+    // 검색 결과 없음 메시지 요소 추가
+    const noResult = document.createElement('div');
+    noResult.id = 'no-search-result';
+    noResult.className = 'hidden w-full py-12 text-center text-slate-500 dark:text-slate-400';
+    noResult.innerHTML = `
+        <div class="flex flex-col items-center gap-3">
+            <i data-lucide="search-x" class="w-12 h-12 opacity-50"></i>
+            <p class="text-lg font-medium" data-i18n="msg_no_result">${translations[appState.currentLang].msg_no_result}</p>
+        </div>
+    `;
+    soundGrid.appendChild(noResult);
+
     soundGrid.addEventListener('click', (e) => {
         const btn = e.target.closest('.tag-btn');
         if (btn) {
@@ -1268,6 +1397,7 @@ function initSoundCards() {
             filterByTag(tag);
         }
     });
+    lucide.createIcons();
 }
 
 // 믹스 버튼 렌더링
@@ -1298,7 +1428,7 @@ function renderCustomMixes() {
     
     if (filteredMixes.length === 0) {
         const emptyMsg = translations[appState.currentLang].no_custom_mixes || "No saved mixes.";
-        customMixGrid.innerHTML = `<p class="text-slate-400 dark:text-slate-500 text-sm w-full text-center">${emptyMsg}</p>`;
+        customMixGrid.innerHTML = `<p class="text-slate-500 dark:text-slate-400 text-sm w-full text-center">${emptyMsg}</p>`;
         return;
     }
 
@@ -1328,7 +1458,7 @@ function renderCustomMixes() {
                 <i data-lucide="${iconName}" class="w-6 h-6 transition-colors" style="color: ${iconColor}"></i>
                 <div class="flex flex-col items-start">
                     <span class="font-medium">${mix.name}</span>
-                    <div class="flex gap-1 text-slate-400 dark:text-slate-500 mt-0.5">
+                    <div class="flex gap-1 text-slate-500 dark:text-slate-400 mt-0.5">
                         ${soundIcons}
                     </div>
                 </div>
@@ -1615,9 +1745,9 @@ function createPlayerRow(id, isMobile) {
     const row = document.createElement('div');
     // Mobile: 2 lines (flex-wrap), PC: 1 line (flex-nowrap)
     if (isMobile) {
-        row.className = 'flex items-center gap-2 p-3 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md rounded-xl border border-white/20 dark:border-slate-700/30 shadow-sm w-full';
+        row.className = 'flex items-center gap-2 p-3 bg-blue-50/90 dark:bg-slate-800/90 backdrop-blur-md rounded-xl border border-blue-200/50 dark:border-slate-700/50 shadow-sm w-full';
     } else {
-        row.className = 'flex items-center justify-between gap-4 p-3 bg-white/40 dark:bg-slate-800/40 backdrop-blur-md rounded-xl border border-white/20 dark:border-slate-700/30 shadow-sm w-full transition-all hover:bg-white/60 dark:hover:bg-slate-800/60';
+        row.className = 'flex items-center justify-between gap-4 p-3 bg-blue-50/80 dark:bg-slate-800/80 backdrop-blur-md rounded-xl border border-blue-200/50 dark:border-slate-700/50 shadow-sm w-full transition-all hover:bg-blue-100/80 dark:hover:bg-slate-700/80';
     }
     
     // Info (Icon + Name)
@@ -1627,7 +1757,7 @@ function createPlayerRow(id, isMobile) {
         : 'flex items-center gap-3 overflow-hidden flex-1 min-w-0';
     
     infoDiv.innerHTML = `
-        <i data-lucide="${sound.icon}" class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0"></i>
+        <i data-lucide="${sound.icon}" class="w-4 h-4 text-slate-600 dark:text-slate-300 shrink-0"></i>
         <span class="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">${name}</span>
     `;
 
@@ -1709,7 +1839,7 @@ function createPlayerRow(id, isMobile) {
     // Favorite Button (Both)
     const isFav = appState.favorites.includes(id);
     const favBtn = document.createElement('button');
-    favBtn.className = `player-fav-btn p-1 transition-colors shrink-0 ${isFav ? 'text-red-500' : 'text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400'}`;
+    favBtn.className = `player-fav-btn p-1 transition-colors shrink-0 ${isFav ? 'text-red-500' : 'text-slate-400 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400'}`;
     favBtn.dataset.id = id;
     favBtn.innerHTML = `<i data-lucide="heart" class="w-4 h-4 ${isFav ? 'fill-current' : ''}"></i>`;
     favBtn.setAttribute('aria-label', `${name} ${translations[appState.currentLang].my_saved}`);
@@ -1729,8 +1859,8 @@ function createPlayerRow(id, isMobile) {
     // Close Button (Individual)
     const closeBtn = document.createElement('button');
     closeBtn.className = isMobile
-        ? 'p-1 text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 transition-colors shrink-0'
-        : 'p-1 text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 transition-colors shrink-0';
+        ? 'p-1 text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition-colors shrink-0'
+        : 'p-1 text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition-colors shrink-0';
     closeBtn.innerHTML = `<i data-lucide="x" class="w-4 h-4"></i>`;
     closeBtn.setAttribute('aria-label', `Close ${name}`);
     closeBtn.onclick = () => {
@@ -2241,7 +2371,7 @@ function toggleFavorite(id) {
                 if (icon) icon.classList.add('fill-current');
             } else {
                 btn.classList.remove('text-red-500');
-                btn.classList.add('text-slate-300', 'dark:text-slate-600');
+                btn.classList.add('text-slate-400', 'dark:text-slate-400');
                 if (icon) icon.classList.remove('fill-current');
             }
         }
@@ -2253,12 +2383,12 @@ function toggleFavorite(id) {
         if (pBtn) {
             const icon = pBtn.querySelector('svg') || pBtn.querySelector('i');
             if (isFav) {
-                pBtn.classList.remove('text-slate-400', 'hover:text-red-500', 'dark:text-slate-500', 'dark:hover:text-red-400');
+                pBtn.classList.remove('text-slate-400', 'hover:text-red-500', 'dark:text-slate-400', 'dark:hover:text-red-400');
                 pBtn.classList.add('text-red-500');
                 if (icon) icon.classList.add('fill-current');
             } else {
                 pBtn.classList.remove('text-red-500');
-                pBtn.classList.add('text-slate-400', 'hover:text-red-500', 'dark:text-slate-500', 'dark:hover:text-red-400');
+                pBtn.classList.add('text-slate-400', 'hover:text-red-500', 'dark:text-slate-400', 'dark:hover:text-red-400');
                 if (icon) icon.classList.remove('fill-current');
             }
         }
@@ -2269,6 +2399,9 @@ function toggleFavorite(id) {
 
 function applyFilters() {
     // 7. 성능 이슈 개선
+    const query = appState.soundSearchQuery ? appState.soundSearchQuery.toLowerCase() : '';
+    let visibleCount = 0;
+
     soundsData.forEach(sound => {
         const card = document.getElementById(`card-${sound.id}`);
         if (!card) return;
@@ -2283,12 +2416,34 @@ function applyFilters() {
             visible = false;
         }
 
+        // 검색어 필터 (이름 및 태그 검색)
+        if (visible && query) {
+            const name = (translations[appState.currentLang]['sound_' + sound.id] || sound.id).toLowerCase();
+            const tags = sound.tags.map(tag => (translations[appState.currentLang]['tag_' + tag] || tag).toLowerCase());
+            const rawTags = sound.tags; // 원문 태그도 검색 허용
+
+            const matchName = name.includes(query);
+            const matchTags = tags.some(t => t.includes(query)) || rawTags.some(t => t.includes(query));
+
+            if (!matchName && !matchTags) visible = false;
+        }
+
         if (visible) {
             card.classList.remove('hidden');
+            visibleCount++;
         } else {
             card.classList.add('hidden');
         }
     });
+
+    const noResult = document.getElementById('no-search-result');
+    if (noResult) {
+        if (visibleCount === 0) {
+            noResult.classList.remove('hidden');
+        } else {
+            noResult.classList.add('hidden');
+        }
+    }
 
     document.querySelectorAll('.tag-btn').forEach(btn => {
         if (btn.dataset.tag === appState.activeTag) {
@@ -2376,10 +2531,13 @@ window.addEventListener('resize', () => {
 
 function initTheme() {
     const savedTheme = safeStorage.getStr('asmr_theme', null);
-    if (savedTheme === 'light') {
-        document.documentElement.classList.remove('dark');
-    } else {
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // 저장된 테마가 'dark'이거나, 저장된 테마가 없고 시스템이 다크 모드일 때
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
         document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
     }
 }
 
@@ -2490,7 +2648,9 @@ function init() {
     // 홈 페이지 전용 초기화
     if (soundGrid) {
         initSoundCards();
+        initSoundSearch();
         restoreSession();
+        // preloadAllSounds(); // 초기 로딩 속도 개선을 위해 비활성화 (클릭 시 로드)
     }
     
     // 2. Null 체크 (Event Listeners)

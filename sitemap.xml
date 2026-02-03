@@ -2,10 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://asmrspace.shop/</loc>
-    <priority>1.0</priority>
+    <lastmod>2026-02-03</lastmod> <priority>1.0</priority>
   </url>
+
+  <url><loc>https://asmrspace.shop/about.html</loc><priority>0.7</priority></url>
+  <url><loc>https://asmrspace.shop/science.html</loc><priority>0.7</priority></url>
+  <url><loc>https://asmrspace.shop/guide.html</loc><priority>0.7</priority></url>
+  <url><loc>https://asmrspace.shop/glossary.html</loc><priority>0.6</priority></url>
+  <url><loc>https://asmrspace.shop/faq.html</loc><priority>0.6</priority></url>
+  <url><loc>https://asmrspace.shop/notice.html</loc><priority>0.5</priority></url>
+  
   <url>
     <loc>https://asmrspace.shop/privacy.html</loc>
-    <priority>0.8</priority>
+    <priority>0.3</priority>
   </url>
 </urlset>

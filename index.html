@@ -1,36 +1,44 @@
 <!DOCTYPE html>
-<html lang="ko" class="dark">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free ASMR Sounds for Sleep & Focus | 잠 잘 오는 무료 ASMR - asmrspace.shop</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>My ASMR Space | Free Sounds for Sleep & Focus</title>
     <meta name="description" content="Free ASMR service for sleep and focus, available on App and Web. Listen to rain, fire, typing sounds, and white noise. 애플리케이션과 웹에서 즐기는 잠 잘 오는 무료 ASMR입니다. 빗소리, 장작불 등 백색소음을 무료로 들어보세요.">
     <meta name="keywords" content="ASMR, White Noise, Sleep Sounds, Focus Music, Rain Sounds, Fire Sounds, 백색소음, 수면유도, 빗소리, 장작불">
     <link rel="canonical" href="https://asmrspace.shop/">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
 
+    <!-- Multilingual SEO (hreflang) -->
+    <link rel="alternate" hreflang="ko" href="https://asmrspace.shop/" />
+    <link rel="alternate" hreflang="en" href="https://asmrspace.shop/?lang=en" />
+    <link rel="alternate" hreflang="ja" href="https://asmrspace.shop/?lang=ja" />
+    <link rel="alternate" hreflang="zh" href="https://asmrspace.shop/?lang=zh" />
+    <link rel="alternate" hreflang="es" href="https://asmrspace.shop/?lang=es" />
+    <link rel="alternate" hreflang="x-default" href="https://asmrspace.shop/" />
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://asmrspace.shop/">
-    <meta property="og:title" content="My ASMR Space - Free ASMR Sounds">
-    <meta property="og:description" content="잠 잘 오는 무료 ASMR 사이트입니다. 빗소리, 장작불 등 백색소음을 무료로 들어보세요.">
+    <meta property="og:title" content="My ASMR Space - 잠 잘 오는 무료 백색소음">
+    <meta property="og:description" content="빗소리, 장작불, 타자 소리 등 나만의 ASMR 믹스를 만들어보세요. 수면과 집중을 위한 무료 백색소음 서비스입니다.">
     <meta property="og:image" content="https://asmrspace.shop/og-image.jpg">
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://asmrspace.shop/">
-    <meta property="twitter:title" content="My ASMR Space - Free ASMR Sounds">
-    <meta property="twitter:description" content="잠 잘 오는 무료 ASMR 사이트입니다. 빗소리, 장작불 등 백색소음을 무료로 들어보세요.">
+    <meta property="twitter:title" content="My ASMR Space - 잠 잘 오는 무료 백색소음">
+    <meta property="twitter:description" content="빗소리, 장작불, 타자 소리 등 나만의 ASMR 믹스를 만들어보세요. 수면과 집중을 위한 무료 백색소음 서비스입니다.">
     <meta property="twitter:image" content="https://asmrspace.shop/og-image.jpg">
     <!-- Favicon (Headphone Emoji) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🎧</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 role=%22img%22 aria-label=%22Headphones%22>🎧</text></svg>">
     <link rel="apple-touch-icon" href="icon.png">
     <link rel="manifest" href="/manifest.json">
 
     <!-- Performance Optimization: Resource Hints -->
     <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://unpkg.com">
 
     <!-- Google tag (gtag.js) -->
@@ -48,12 +56,7 @@
      crossorigin="anonymous"></script>
     <meta name="naver-site-verification" content="a225d2d5c78d018b2a2026c233d89322d3181253" />
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-    </script>
+    <link rel="stylesheet" href="./output.css">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest" defer></script>
     <!-- Custom CSS -->
@@ -71,6 +74,14 @@
           "description": "Free ASMR service for sleep and focus. Listen to rain, fire, typing sounds, and white noise.",
           "applicationCategory": "HealthApplication",
           "operatingSystem": "Any",
+          "featureList": [
+            "Rain sounds",
+            "Fireplace sounds",
+            "Custom mix creator",
+            "Sleep timer",
+            "White noise",
+            "Focus sounds"
+          ],
           "offers": {
             "@type": "Offer",
             "price": "0",
@@ -104,14 +115,14 @@
     </noscript>
     <header class="p-6 text-center relative z-50">
         <div class="flex justify-end mb-4 sm:absolute sm:top-4 sm:right-4 sm:mb-0 gap-2">
-            <button id="theme-btn" class="flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            <button id="theme-btn" aria-label="다크 모드 전환" class="flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                 <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
                 <span class="hidden dark:block text-sm font-medium" data-i18n="theme_dark">Dark Mode</span>
                 <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
                 <span class="block dark:hidden text-sm font-medium" data-i18n="theme_light">Light Mode</span>
             </button>
             <div class="relative inline-block text-left">
-                <button id="lang-btn" class="flex items-center gap-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:border-blue-400">
+                <button id="lang-btn" aria-label="언어 변경" class="flex items-center gap-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:border-blue-400">
                     <i data-lucide="globe" class="w-4 h-4"></i>
                     <span>Language</span>
                 </button>
@@ -124,10 +135,12 @@
                 </div>
             </div>
         </div>
-        <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text" data-i18n="title">
-            My ASMR Space
-        </h1>
-        <p class="text-slate-500 dark:text-slate-400 mb-6" data-i18n="subtitle">나만의 소리로 휴식하세요.</p>
+        <div class="inline-block">
+            <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text" data-i18n="title">
+                My ASMR Space
+            </h1>
+            <p class="text-slate-600 dark:text-slate-300 mb-6" data-i18n="subtitle">나만의 소리로 휴식하세요.</p>
+        </div>
         
         <!-- Daily Quote -->
         <div class="max-w-xl mx-auto bg-white/50 dark:bg-slate-800/50 backdrop-blur rounded-full px-6 py-2 border border-slate-200 dark:border-slate-700 shadow-sm">
@@ -138,16 +151,16 @@
     <main class="flex-grow container mx-auto px-4 py-8 relative z-10">
         <!-- Favorites Filter -->
         <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8">
-            <button id="fav-filter-btn" class="hover-red flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 transition-all shadow-sm">
+            <button id="fav-filter-btn" aria-label="즐겨찾기 필터" class="hover-red flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 transition-all shadow-sm">
                 <i data-lucide="heart" class="w-4 h-4 text-red-500 dark:text-red-400"></i>
                 <span data-i18n="my_saved">즐겨찾기</span>
             </button>
-            <button id="show-mixes-btn" class="hover-purple flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 transition-all shadow-sm">
+            <button id="show-mixes-btn" aria-label="나만의 믹스 보기" class="hover-purple flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 transition-all shadow-sm">
                 <i data-lucide="list-music" class="w-4 h-4 text-purple-500 dark:text-purple-400"></i>
                 <span data-i18n="my_mix_title">나만의 믹스</span>
             </button>
             <div class="w-full sm:hidden"></div>
-            <button id="timer-btn" class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 transition-all shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700">
+            <button id="timer-btn" aria-label="타이머 설정" class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 transition-all shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700">
                 <i data-lucide="timer" class="w-4 h-4 text-blue-500 dark:text-blue-400"></i>
                 <span data-i18n="btn_timer">타이머</span>
             </button>
@@ -155,11 +168,14 @@
 
         <!-- Recommended Mixes -->
         <section class="mb-12 text-center max-w-4xl mx-auto">
-            <h2 class="text-2xl font-bold mb-6 text-slate-800 dark:text-slate-200 flex items-center justify-center gap-2"><i data-lucide="sparkles" class="w-6 h-6 text-yellow-500"></i> <span data-i18n="mix_title">추천 사운드 믹스</span></h2>
+            <h2 class="text-2xl font-bold mb-8 text-slate-900 dark:text-white flex items-center justify-center gap-3">
+                <i data-lucide="sparkles" class="w-6 h-6 text-yellow-400"></i>
+                <span data-i18n="mix_title" class="bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">추천 사운드 믹스</span>
+            </h2>
             <div id="mix-grid" class="flex flex-wrap justify-center gap-4"></div>
         </section>
 
-        <div id="sound-grid" class="flex flex-wrap justify-center gap-3 sm:gap-6">
+        <div id="sound-grid" class="flex flex-wrap justify-center gap-3 sm:gap-6 min-h-[500px]">
             <!-- 자바스크립트가 여기에 카드를 생성합니다 -->
         </div>
 
@@ -180,7 +196,7 @@
                     <li data-i18n="tip_sleep"><strong>수면 유도:</strong> 볼륨을 낮추고 자연의 소리에 귀를 기울여보세요.</li>
                 </ul>
                 
-                <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="site_desc">
+                <p class="text-slate-600 dark:text-slate-300 text-sm" data-i18n="site_desc">
                     이 사이트는 사용자에게 무료로 휴식과 집중을 위한 소리를 제공합니다. 웹사이트와 애플리케이션 어디서든 자유롭게 이용할 수 있습니다.
                 </p>
             </article>
@@ -213,7 +229,7 @@
     </main>
 
     <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-8 mt-auto relative z-10">
-        <div class="container mx-auto px-4 text-center text-slate-500 dark:text-slate-400">
+        <div class="container mx-auto px-4 text-center text-slate-600 dark:text-slate-300">
             <p class="mb-2" data-i18n="copyright">&copy; 2026 My ASMR Space. All rights reserved.</p>
             <div class="flex flex-wrap justify-center gap-4 text-sm mt-4">
                 <a href="about.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_about">제작자 소개</a>
@@ -328,13 +344,13 @@
             
             <!-- Global Controls (Bottom Row) -->
             <div class="flex items-center justify-center gap-6 pt-2 border-t border-slate-200/50 dark:border-slate-700/50">
-                <button id="mobile-save-btn" class="p-2 text-slate-400 hover:text-purple-500 transition-colors">
+                <button id="mobile-save-btn" aria-label="믹스 저장" class="p-2 text-slate-400 hover:text-purple-500 transition-colors">
                     <i data-lucide="save" class="w-6 h-6"></i>
                 </button>
-                <button id="mobile-player-toggle" class="p-3 rounded-full bg-blue-500 text-white shadow-lg shadow-blue-500/30 active:scale-95 transition-transform">
+                <button id="mobile-player-toggle" aria-label="재생/일시정지" class="p-3 rounded-full bg-blue-500 text-white shadow-lg shadow-blue-500/30 active:scale-95 transition-transform">
                     <i data-lucide="pause" class="w-6 h-6 fill-current"></i>
                 </button>
-                <button id="mobile-player-close" class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+                <button id="mobile-player-close" aria-label="플레이어 닫기" class="p-2 text-slate-400 hover:text-red-500 transition-colors">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
@@ -353,13 +369,13 @@
                 </div>
             </div>
             <div class="flex items-center gap-2 shrink-0">
-                <button id="pc-save-btn" class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-purple-100 dark:hover:bg-purple-900/30 text-slate-600 dark:text-slate-300 hover:text-purple-500 transition-colors">
+                <button id="pc-save-btn" aria-label="믹스 저장" class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-purple-100 dark:hover:bg-purple-900/30 text-slate-600 dark:text-slate-300 hover:text-purple-500 transition-colors">
                     <i data-lucide="save" class="w-5 h-5"></i>
                 </button>
-                <button id="pc-player-toggle" class="flex items-center justify-center w-14 h-14 rounded-full bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/30 transition-all hover:scale-105 active:scale-95">
+                <button id="pc-player-toggle" aria-label="재생/일시정지" class="flex items-center justify-center w-14 h-14 rounded-full bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/30 transition-all hover:scale-105 active:scale-95">
                     <i data-lucide="pause" class="w-6 h-6 fill-current"></i>
                 </button>
-                <button id="pc-player-close" class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-red-100 dark:hover:bg-red-900/30 text-slate-600 dark:text-slate-300 hover:text-red-500 transition-colors">
+                <button id="pc-player-close" aria-label="플레이어 닫기" class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-red-100 dark:hover:bg-red-900/30 text-slate-600 dark:text-slate-300 hover:text-red-500 transition-colors">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -367,7 +383,7 @@
     </div>
 
     <!-- Main JS -->
-    <script src="main.js?v=1.3"></script>
+    <script src="main.js?v=1.3" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const timerDisplay = document.getElementById('timer-display');
