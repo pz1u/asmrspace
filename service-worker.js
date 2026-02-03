@@ -5,7 +5,7 @@ const ASSETS_TO_CACHE = [
   '/style.css',
   '/main.js',
   '/manifest.json',
-  '/icon.png',
+  '/icon.webp',
   'https://cdn.tailwindcss.com',
   'https://unpkg.com/lucide@latest'
 ];

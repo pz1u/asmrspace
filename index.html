@@ -5,20 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="
       default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' 
-        https://www.googletagmanager.com 
-        https://www.google-analytics.com
-        https://pagead2.googlesyndication.com
-        https://unpkg.com
-        https://ep1.adtrafficquality.google
-        https://ep2.adtrafficquality.google
-        https://static.cloudflareinsights.com;
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' data: https:;
-      connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://pagead2.googlesyndication.com;
-      frame-src https://googleads.g.doubleclick.net;
-      object-src 'none';
-      require-trusted-types-for 'script';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://unpkg.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://static.cloudflareinsights.com https://www.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://pagead2.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;
     ">
     <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups">
     <title>My ASMR Space | Free Sounds for Sleep & Focus</title>
@@ -48,8 +35,8 @@
     <meta property="twitter:title" content="My ASMR Space - 잠 잘 오는 무료 백색소음">
     <meta property="twitter:description" content="빗소리, 장작불, 타자 소리 등 나만의 ASMR 믹스를 만들어보세요. 수면과 집중을 위한 무료 백색소음 서비스입니다.">
     <meta property="twitter:image" content="https://asmrspace.shop/og-image.jpg">
-    <!-- Favicon (Headphone Emoji) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 role=%22img%22 aria-label=%22Headphones%22>🎧</text></svg>">
+    <!-- Favicon -->
+    <link rel="icon" href="icon.webp">
     <link rel="apple-touch-icon" href="icon.png">
     <link rel="manifest" href="/manifest.json">
 
@@ -59,28 +46,7 @@
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
     <link rel="preconnect" href="https://unpkg.com">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BMKFVMLSN6"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      
-      // Consent Mode v2 Default
-      gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'analytics_storage': 'denied'
-      });
-
-      gtag('js', new Date());
-
-      gtag('config', 'G-BMKFVMLSN6', { 'send_page_view': false });
-
-      window.addEventListener('load', function() {
-          gtag('event', 'page_view');
-      });
-
       // Trusted Types Policy
       if (window.trustedTypes && trustedTypes.createPolicy) {
         trustedTypes.createPolicy('default', {
@@ -106,7 +72,16 @@
     </script>
     <meta name="naver-site-verification" content="a225d2d5c78d018b2a2026c233d89322d3181253" />
     <!-- Tailwind CSS -->
-    <style>body { margin: 0; font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }</style>
+    <style>
+        body { margin: 0; font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
+        /* CLS 방지: 공간 미리 확보 */
+        #sound-grid { min-height: 600px; }
+        header .flex.justify-end { min-height: 48px; }
+        main.flex-grow { min-height: calc(100vh - 250px); }
+        #mix-grid { min-height: 120px; }
+        /* 아이콘 크기 고정 */
+        [data-lucide] { display: inline-block !important; }
+    </style>
     <link rel="preload" href="./output.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="./output.css"></noscript>
     <!-- Lucide Icons -->
@@ -164,7 +139,7 @@
         </div>
     </noscript>
     <header class="p-6 text-center relative z-50">
-        <div class="flex justify-end mb-4 sm:absolute sm:top-4 sm:right-4 sm:mb-0 gap-2" style="min-height: 44px;">
+        <div class="flex justify-end mb-4 sm:absolute sm:top-4 sm:right-4 sm:mb-0 gap-2" style="min-height: 48px;">
             <button id="theme-btn" aria-label="다크 모드 전환" class="flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                 <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
                 <span class="hidden dark:block text-sm font-medium" data-i18n="theme_dark">Dark Mode</span>
@@ -198,7 +173,7 @@
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8 relative z-10" style="min-height: calc(100vh - 200px);">
+    <main class="flex-grow container mx-auto px-4 pt-4 pb-8 relative z-10" style="min-height: calc(100vh - 250px);">
         <!-- Favorites Filter -->
         <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8">
             <button id="fav-filter-btn" aria-label="즐겨찾기 필터" class="hover-red flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 transition-all shadow-sm">
@@ -216,6 +191,9 @@
             </button>
         </div>
 
+        <!-- Ad Placeholder (광고 승인 후 활성화하세요) -->
+        <!-- <div id="ad-placeholder" class="w-full min-h-[250px] mb-8"></div> -->
+
         <!-- Recommended Mixes -->
         <section class="mb-12 text-center max-w-4xl mx-auto">
             <h2 class="text-2xl font-bold mb-8 text-slate-900 dark:text-white flex items-center justify-center gap-3">
@@ -225,7 +203,7 @@
             <div id="mix-grid" class="flex flex-wrap justify-center gap-4"></div>
         </section>
 
-        <div id="sound-grid" class="flex flex-wrap justify-center gap-3 sm:gap-6" style="min-height: 1200px;">
+        <div id="sound-grid" class="flex flex-wrap justify-center gap-3 sm:gap-6" style="min-height: 600px;">
             <!-- 스켈레톤 로딩 (8개) -->
             <div class="skeleton-card w-32 sm:w-40 h-40 sm:h-48 bg-slate-200 dark:bg-slate-700 rounded-2xl animate-pulse"></div>
             <div class="skeleton-card w-32 sm:w-40 h-40 sm:h-48 bg-slate-200 dark:bg-slate-700 rounded-2xl animate-pulse"></div>
@@ -711,6 +689,32 @@
     if(!localStorage.getItem('cookieConsent')) {
       document.getElementById('cookie-consent').classList.remove('hidden');
     }
+
+    window.addEventListener('load', function() {
+        // 페이지 로드 완료 2초 후 Analytics 로드
+        setTimeout(function() {
+            const gaScript = document.createElement('script');
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-BMKFVMLSN6';
+            gaScript.async = true;
+            document.head.appendChild(gaScript);
+            
+            gaScript.onload = function() {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                
+                // Consent Mode v2 Default
+                gtag('consent', 'default', {
+                    'ad_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied',
+                    'analytics_storage': 'denied'
+                });
+
+                gtag('js', new Date());
+                gtag('config', 'G-BMKFVMLSN6');
+            };
+        }, 2000);
+    });
     </script>
 </body>
 </html>
