@@ -1327,7 +1327,7 @@ function initSoundCards() {
     soundsData.forEach(sound => {
         const card = document.createElement('div');
         const isFav = appState.favorites.includes(sound.id);
-        card.className = 'sound-card w-[calc(50%-0.5rem)] sm:w-72 bg-white dark:bg-slate-800 border-2 border-transparent rounded-xl p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-4 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm';
+        card.className = 'sound-card w-[calc(50%-0.5rem)] sm:w-72 bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-4 shadow-lg shadow-slate-200/50 dark:shadow-none border border-white dark:border-slate-700 hover:-translate-y-1 transition-all duration-300';
         card.id = `card-${sound.id}`;
         card.dataset.id = sound.id; 
         
@@ -1346,7 +1346,7 @@ function initSoundCards() {
             <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white" data-i18n="sound_${sound.id}">${translations[appState.currentLang]['sound_' + sound.id]}</h3>
             <div class="flex gap-2 mb-2 flex-wrap justify-center">${tagsHtml}</div>
             <div class="w-full flex flex-col gap-3 mt-2">
-                <button id="btn-${sound.id}" class="w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2">
+                <button id="btn-${sound.id}" class="w-full py-2.5 rounded-xl bg-white border border-slate-200 dark:bg-slate-700 dark:border-slate-600 hover:bg-blue-500 hover:border-blue-500 dark:hover:bg-blue-500 dark:hover:border-blue-500 text-slate-600 dark:text-slate-200 hover:text-white dark:hover:text-white font-medium transition-all shadow-sm flex justify-center items-center gap-2 group">
                     <i data-lucide="play" width="16"></i> <span data-i18n="play">${translations[appState.currentLang].play}</span>
                 </button>
             </div>`;
@@ -1409,9 +1409,9 @@ function renderMixes() {
     mixGrid.innerHTML = '';
     soundMixes.forEach(mix => {
         const btn = document.createElement('button');
-        btn.className = 'flex items-center gap-2 px-5 py-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all shadow-sm group';
+        btn.className = 'flex items-center gap-2 px-6 py-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all shadow-sm group';
         btn.innerHTML = `
-            <i data-lucide="${mix.icon}" class="w-5 h-5 text-blue-400 group-hover:text-blue-500 transition-colors"></i>
+            <i data-lucide="${mix.icon}" class="w-6 h-6 text-blue-400 group-hover:text-blue-500 transition-colors"></i>
             <span class="font-medium" data-i18n="mix_${mix.id}">${translations[appState.currentLang]['mix_' + mix.id]}</span>
         `;
         // Accessibility
@@ -1440,7 +1440,7 @@ function renderCustomMixes() {
         btnContainer.className = 'relative group';
         
         const btn = document.createElement('button');
-        btn.className = 'flex items-center gap-2 px-5 py-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-slate-700 hover:border-purple-300 dark:hover:border-purple-500 transition-all shadow-sm pr-16';
+        btn.className = 'flex items-center gap-2 px-6 py-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-slate-700 hover:border-purple-300 dark:hover:border-purple-500 transition-all shadow-sm pr-16';
         const iconName = mix.icon || 'music';
         const iconColor = mix.color || '#3b82f6'; // Default blue-500
         
@@ -1953,7 +1953,7 @@ window.resetAllButtons = function() {
         const btn = document.getElementById(`btn-${sound.id}`);
         const card = document.getElementById(`card-${sound.id}`);
         if (btn) {
-            btn.className = 'w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2';
+            btn.className = 'w-full py-2.5 rounded-xl bg-white border border-slate-200 dark:bg-slate-700 dark:border-slate-600 hover:bg-blue-500 hover:border-blue-500 dark:hover:bg-blue-500 dark:hover:border-blue-500 text-slate-600 dark:text-slate-200 hover:text-white dark:hover:text-white font-medium transition-all shadow-sm flex justify-center items-center gap-2 group';
             btn.innerHTML = `<i data-lucide="play" width="16"></i> <span>${translations[appState.currentLang].play}</span>`;
         }
         if (card) {
@@ -2144,8 +2144,51 @@ async function toggleSound(id) {
 }
 
 // --- Timer Worker Integration ---
-const timerWorker = new Worker('timer-worker.js');
+let timerWorker = null;
 let currentTotalTime = 0; // 프로그레스 바 계산을 위한 전체 시간
+
+function createTimerWorker() {
+    if (timerWorker) timerWorker.terminate();
+    timerWorker = new Worker('timer-worker.js');
+    
+    timerWorker.onmessage = function(e) {
+        const { action, timeLeft } = e.data;
+
+        if (action === 'tick') {
+            const timeStr = formatTime(timeLeft);
+            
+            // 1. 플로팅 칩 업데이트
+            const chipDisplay = document.getElementById('timer-chip-display');
+            if (chipDisplay) chipDisplay.textContent = timeStr;
+            
+            // 2. 모달 디스플레이 업데이트 (열려있을 경우)
+            const modalDisplay = document.getElementById('timer-display');
+            if (modalDisplay) modalDisplay.textContent = timeStr;
+
+            // 3. 원형 프로그레스 바 업데이트
+            const progressCircle = document.getElementById('timer-progress');
+            if (progressCircle && currentTotalTime > 0) {
+                const circumference = 283; // 2 * PI * 45
+                const offset = circumference * (1 - (timeLeft / currentTotalTime));
+                progressCircle.style.strokeDashoffset = offset;
+            }
+            
+            // 4. 브라우저 탭 제목 업데이트
+            if (translations[appState.currentLang]) {
+                document.title = `${timeStr} - ${translations[appState.currentLang].title}`;
+            }
+
+            // 5. 안드로이드 앱으로 시간 전송
+            if (typeof Android !== 'undefined' && Android.updateTimer) {
+                Android.updateTimer(timeStr);
+            }
+        } else if (action === 'expired') {
+            finalizeTimer();
+        }
+    };
+}
+
+createTimerWorker();
 
 function formatTime(seconds) {
     const h = Math.floor(seconds / 3600);
@@ -2156,42 +2199,6 @@ function formatTime(seconds) {
     }
     return `${m}:${s.toString().padStart(2, '0')}`;
 }
-
-timerWorker.onmessage = function(e) {
-    const { action, timeLeft } = e.data;
-
-    if (action === 'tick') {
-        const timeStr = formatTime(timeLeft);
-        
-        // 1. 플로팅 칩 업데이트
-        const chipDisplay = document.getElementById('timer-chip-display');
-        if (chipDisplay) chipDisplay.textContent = timeStr;
-        
-        // 2. 모달 디스플레이 업데이트 (열려있을 경우)
-        const modalDisplay = document.getElementById('timer-display');
-        if (modalDisplay) modalDisplay.textContent = timeStr;
-
-        // 3. 원형 프로그레스 바 업데이트
-        const progressCircle = document.getElementById('timer-progress');
-        if (progressCircle && currentTotalTime > 0) {
-            const circumference = 283; // 2 * PI * 45
-            const offset = circumference * (1 - (timeLeft / currentTotalTime));
-            progressCircle.style.strokeDashoffset = offset;
-        }
-        
-        // 4. 브라우저 탭 제목 업데이트
-        if (translations[appState.currentLang]) {
-            document.title = `${timeStr} - ${translations[appState.currentLang].title}`;
-        }
-
-        // 5. 안드로이드 앱으로 시간 전송
-        if (typeof Android !== 'undefined' && Android.updateTimer) {
-            Android.updateTimer(timeStr);
-        }
-    } else if (action === 'expired') {
-        finalizeTimer();
-    }
-};
 
 function finalizeTimer() {
     // 1. 페이드 아웃 및 소리 정지
@@ -2236,12 +2243,24 @@ function finalizeTimer() {
     if (typeof Android !== 'undefined' && Android.stopService) {
         Android.stopService();
     }
+    window.dispatchEvent(new CustomEvent('asmr-timer-ended'));
 }
 
 // 전역 함수로 노출 (index.html에서 호출)
 window.startAppTimer = function(minutes) {
+    // Worker 재생성으로 이전 메시지 큐 초기화 (잔여 시간 표시 버그 수정)
+    createTimerWorker();
+
     const seconds = minutes * 60;
     currentTotalTime = seconds; // 전체 시간 설정
+    
+    // UI 즉시 업데이트 (1초 딜레이 방지)
+    const timeStr = formatTime(seconds);
+    const chipDisplay = document.getElementById('timer-chip-display');
+    if (chipDisplay) chipDisplay.textContent = timeStr;
+    const modalDisplay = document.getElementById('timer-display');
+    if (modalDisplay) modalDisplay.textContent = timeStr;
+
     timerWorker.postMessage({ action: 'start', time: seconds });
     
     // 프로그레스 바 초기화
@@ -2264,6 +2283,10 @@ window.addAppTimer = function(minutes) {
     const seconds = minutes * 60;
     currentTotalTime += seconds; // 전체 시간 증가 (비율 유지)
     timerWorker.postMessage({ action: 'add', time: seconds });
+
+    // 칩 다시 표시
+    const chip = document.getElementById('timer-chip');
+    if (chip) chip.classList.remove('hidden');
 };
 
 window.pauseAppTimer = function() {
@@ -2286,6 +2309,10 @@ window.resumeAppTimer = function() {
         chipDot.classList.remove('bg-amber-500');
         chipDot.classList.add('bg-red-500', 'animate-pulse');
     }
+
+    // 칩 다시 표시
+    const chip = document.getElementById('timer-chip');
+    if (chip) chip.classList.remove('hidden');
 };
 
 window.cancelAppTimer = function() {
@@ -2337,12 +2364,12 @@ function updateUI(id, isPlaying) {
     const soundName = translations[appState.currentLang]['sound_' + id] || id;
     
     if (isPlaying) {
-        btn.className = 'w-full py-2 rounded-lg bg-sky-400 hover:bg-sky-500 text-white font-medium transition-colors flex justify-center items-center gap-2';
+        btn.className = 'w-full py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 border border-blue-500 text-white font-bold transition-all shadow-md shadow-blue-500/30 flex justify-center items-center gap-2';
         btn.innerHTML = `<i data-lucide="${icon}" width="16"></i> <span data-i18n="${textKey}">${translations[appState.currentLang][textKey]}</span>`;
         btn.setAttribute('aria-label', `${soundName} ${translations[appState.currentLang].stop}`);
         card.classList.add('card-active');
     } else {
-        btn.className = 'w-full py-2 rounded-lg bg-slate-100 dark:bg-slate-600 hover:bg-blue-500 dark:hover:bg-blue-500 text-slate-700 dark:text-white hover:text-white font-medium transition-colors flex justify-center items-center gap-2';
+        btn.className = 'w-full py-2.5 rounded-xl bg-white border border-slate-200 dark:bg-slate-700 dark:border-slate-600 hover:bg-blue-500 hover:border-blue-500 dark:hover:bg-blue-500 dark:hover:border-blue-500 text-slate-600 dark:text-slate-200 hover:text-white dark:hover:text-white font-medium transition-all shadow-sm flex justify-center items-center gap-2 group';
         btn.innerHTML = `<i data-lucide="${icon}" width="16"></i> <span data-i18n="${textKey}">${translations[appState.currentLang][textKey]}</span>`;
         btn.setAttribute('aria-label', `${soundName} ${translations[appState.currentLang].play}`);
         card.classList.remove('card-active');

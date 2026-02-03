@@ -15,6 +15,9 @@ html.dark .dark\:block {
 html.dark .dark\:hidden {
     display: none !important;
 }
+html.dark .dark\:flex {
+    display: flex !important;
+}
 html.dark body {
     background-color: #020617 !important; /* slate-950 */
     background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 60%);

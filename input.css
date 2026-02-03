@@ -16,6 +16,9 @@ html.dark .dark\:block {
 html.dark .dark\:hidden {
     display: none !important;
 }
+html.dark .dark\:flex {
+    display: flex !important;
+}
 html.dark body {
     background-color: #020617 !important; /* slate-950 */
     background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 60%);
@@ -127,8 +130,8 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 
 /* 아이콘 크기 고정으로 CLS 방지 */
-[data-lucide] {
-    display: inline-block !important;
+:where([data-lucide]) {
+    display: inline-block;
 }
 .w-4[data-lucide], .h-4[data-lucide] {
     width: 1rem !important;

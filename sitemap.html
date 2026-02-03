@@ -9,14 +9,18 @@
     <link href="output.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest" defer></script>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-white min-h-screen flex flex-col transition-colors duration-300">
+<body class="bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-white min-h-screen flex flex-col transition-colors duration-300">
     <header class="p-6 text-center relative z-50">
         <div class="flex justify-end mb-4 sm:absolute sm:top-4 sm:right-4 sm:mb-0 gap-2">
             <button id="theme-btn" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
-                <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
-                <span class="hidden dark:block text-sm font-medium" data-i18n="theme_dark">Dark Mode</span>
-                <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
-                <span class="block dark:hidden text-sm font-medium" data-i18n="theme_light">Light Mode</span>
+                <div class="hidden dark:flex items-center gap-2">
+                    <i data-lucide="moon" class="w-4 h-4"></i>
+                    <span class="text-sm font-medium" data-i18n="theme_dark">Dark Mode</span>
+                </div>
+                <div class="flex dark:hidden items-center gap-2">
+                    <i data-lucide="sun" class="w-4 h-4"></i>
+                    <span class="text-sm font-medium" data-i18n="theme_light">Light Mode</span>
+                </div>
             </button>
             <div class="relative inline-block text-left">
                 <button id="lang-btn" class="flex items-center gap-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:border-blue-400">
