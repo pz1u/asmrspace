@@ -7,6 +7,11 @@ html.dark {
     color-scheme: dark;
 }
 
+/* 테마 전환 시 부드러운 효과 */
+body {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, background-image 0.3s ease-in-out;
+}
+
 /* Tailwind CSS 다크모드 클래스 호환성 패치 */
 /* output.css가 시스템 설정(media) 기준으로 빌드된 경우, 버튼 클릭(class) 시 스타일이 적용되지 않는 문제를 해결합니다. */
 html.dark .dark\:block {
@@ -97,6 +102,10 @@ html.dark .border-blue-200\/50 { border-color: rgba(255, 255, 255, 0.1) !importa
 /* 그라데이션 색상을 더 밝게 변경하여 가독성을 높입니다. */
 html.dark span[data-i18n="mix_title"] {
     background-image: linear-gradient(to right, #93c5fd, #c4b5fd) !important; /* blue-300 to purple-300 */
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    display: inline-block;
 }
 
 /* 볼륨 슬라이더 커스텀 스타일 */
@@ -173,8 +182,10 @@ html.dark .card-active {
 /* 모바일에서 서브 페이지(제작자 소개 등) 하단 버튼 겹침 방지 */
 @media (max-width: 640px) {
     /* 버튼 그룹 컨테이너를 세로 정렬로 변경 */
-    div:has([data-i18n="btn_home"]),
-    div:has([data-i18n="btn_msg"]) {
+    /* :has() 선택자를 직계 자식(>)으로 제한하여 상위 컨테이너 레이아웃 깨짐 방지 */
+    div:has(> a [data-i18n="btn_home"]),
+    div:has(> button [data-i18n="btn_msg"]) {
+        display: flex !important;
         flex-direction: column !important;
         gap: 0.75rem !important;
     }
@@ -183,6 +194,7 @@ html.dark .card-active {
     a:has([data-i18n="btn_home"]),
     button:has([data-i18n="btn_msg"]) {
         width: 100% !important;
+        display: flex !important;
         justify-content: center !important;
     }
 }
@@ -192,4 +204,9 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+/* 웹 환경 접근성 개선: 모든 버튼 요소에 포인터 커서 적용 */
+button:not(:disabled) {
+    cursor: pointer;
 }

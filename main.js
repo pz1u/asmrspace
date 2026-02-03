@@ -2664,13 +2664,18 @@ function init() {
     
     const langBtn = document.getElementById('lang-btn');
     const langMenu = document.getElementById('lang-menu');
-    const themeBtn = document.getElementById('theme-btn');
 
-    if (themeBtn) themeBtn.addEventListener('click', () => {
+    // 테마 토글 기능 (PC/모바일 버튼 모두 지원)
+    const handleThemeToggle = (e) => {
+        e.preventDefault();
         document.documentElement.classList.toggle('dark');
         const isDark = document.documentElement.classList.contains('dark');
         safeStorage.setStr('asmr_theme', isDark ? 'dark' : 'light');
-    });
+    };
+
+    // ID가 'theme-btn'인 모든 요소(중복 ID 대응) 및 'mobile-theme-btn' 선택
+    const themeBtns = document.querySelectorAll('[id="theme-btn"], [id="mobile-theme-btn"]');
+    themeBtns.forEach(btn => btn.addEventListener('click', handleThemeToggle));
 
     updateLanguage();
     
