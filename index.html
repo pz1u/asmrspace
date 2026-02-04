@@ -33,6 +33,32 @@
         margin-bottom: 2rem !important; /* mb-8보다 더 확실한 간격 */
         flex-wrap: wrap !important;
       }
+
+      /* 모바일 2열 배치 최적화 */
+      @media (max-width: 640px) {
+        #sound-grid {
+          display: flex !important;
+          flex-direction: row !important; /* 세로가 아닌 가로로 나열 */
+          flex-wrap: wrap !important;     /* 공간 부족 시 다음 줄로 */
+          justify-content: center !important;
+          gap: 0.75rem !important;        /* 카드 사이 간격 */
+          padding: 0 1rem !important;
+        }
+
+        .sound-card {
+          /* 모바일에서 글자가 넘치지 않게 최소 높이 확보 */
+          min-height: 180px !important; 
+          max-width: 170px !important;
+        }
+
+        /* 카드 내 제목이 길어질 경우 겹침 방지 */
+        .sound-card h3 {
+          font-size: 0.95rem !important;
+          line-height: 1.2 !important;
+          text-align: center;
+          word-break: keep-all;
+        }
+      }
     </style>
     <meta name="description" content="Free ASMR service for sleep and focus, available on App and Web. Listen to rain, fire, typing sounds, and white noise. 애플리케이션과 웹에서 즐기는 잠 잘 오는 무료 ASMR입니다. 빗소리, 장작불 등 백색소음을 무료로 들어보세요.">
     <meta name="keywords" content="ASMR, White Noise, Sleep Sounds, Focus Music, Rain Sounds, Fire Sounds, 백색소음, 수면유도, 빗소리, 장작불">

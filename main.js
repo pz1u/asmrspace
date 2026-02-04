@@ -1329,15 +1329,15 @@ function initSoundCards() {
 
     const render = () => {
         soundGrid.innerHTML = '';
-        // 로더 제거 후 그리드 레이아웃 복구 (flex-col -> flex-wrap)
-        soundGrid.className = "flex flex-wrap justify-center gap-4 sm:gap-8 w-full";
+        // 1. 그리드 초기화 및 레이아웃 복구 (flex-col -> flex-wrap)
+        soundGrid.className = "flex flex-wrap justify-center gap-4 sm:gap-8 w-full px-4";
 
         soundsData.forEach((sound, index) => {
             const card = document.createElement('div');
             const isFav = appState.favorites.includes(sound.id);
             
-            // card-enter 클래스 추가 및 애니메이션 딜레이 설정
-            card.className = 'sound-card w-[calc(50%-0.5rem)] sm:w-72 bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-4 shadow-lg shadow-slate-200/50 dark:shadow-none border border-white dark:border-slate-700 hover:-translate-y-1 transition-all duration-300 card-enter';
+            // 2. 모달 및 카드 너비 보정 (w-[calc(50%-0.75rem)]가 2열 배치의 핵심)
+            card.className = 'sound-card w-[calc(50%-0.75rem)] sm:w-72 bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-4 shadow-lg border border-white dark:border-slate-700 transition-all card-enter';
             card.style.animationDelay = `${index * 0.05}s`;
             
             card.id = `card-${sound.id}`;
