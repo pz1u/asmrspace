@@ -1336,8 +1336,8 @@ function initSoundCards() {
             const card = document.createElement('div');
             const isFav = appState.favorites.includes(sound.id);
             
-            // 2. 모달 및 카드 너비 보정 (w-[calc(50%-0.75rem)]가 2열 배치의 핵심)
-            card.className = 'sound-card w-[calc(50%-0.75rem)] sm:w-72 bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-4 shadow-lg border border-white dark:border-slate-700 transition-all card-enter';
+            // 2. 모바일 1열 배치 (w-full)
+            card.className = 'sound-card w-full sm:w-72 bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-4 shadow-lg border border-white dark:border-slate-700 transition-all card-enter';
             card.style.animationDelay = `${index * 0.05}s`;
             
             card.id = `card-${sound.id}`;
