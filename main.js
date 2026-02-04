@@ -70,6 +70,7 @@ const translations = {
         btn_pause: "일시정지",
         btn_resume: "재개",
         
+        loading_msg: "공간을 준비하는 중...",
         // 메뉴 & 링크 (Menu & Links)
         sitemap: "사이트맵",
         contact_link: "문의하기",
@@ -300,6 +301,7 @@ const translations = {
         btn_reset: "Reset",
         btn_pause: "Pause",
         btn_resume: "Resume",
+        loading_msg: "Setting the mood...",
         sitemap: "Sitemap",
         contact_link: "Contact Us",
         privacy: "Privacy Policy",
@@ -522,6 +524,7 @@ const translations = {
         btn_reset: "リセット",
         btn_pause: "一時停止",
         btn_resume: "再開",
+        loading_msg: "空間を準備中...",
         sitemap: "サイトマップ",
         contact_link: "お問い合わせ",
         privacy: "プライバシーポリシー",
@@ -735,6 +738,7 @@ const translations = {
         btn_reset: "重置",
         btn_pause: "暂停",
         btn_resume: "继续",
+        loading_msg: "正在准备空间...",
         sitemap: "网站地图",
         contact_link: "联系我们",
         privacy: "隐私政策",
@@ -948,6 +952,7 @@ const translations = {
         btn_reset: "Reiniciar",
         btn_pause: "Pausa",
         btn_resume: "Reanudar",
+        loading_msg: "Preparando el ambiente...",
         sitemap: "Mapa del sitio",
         contact_link: "Contáctenos",
         privacy: "Política de Privacidad",
@@ -1320,78 +1325,102 @@ function initSoundSearch() {
 function initSoundCards() {
     if (!soundGrid) return;
     
-    // 스켈레톤 제거
-    document.querySelectorAll('.skeleton-card').forEach(el => el.remove());
-    soundGrid.innerHTML = '';
+    const loader = document.getElementById('main-loader');
 
-    soundsData.forEach(sound => {
-        const card = document.createElement('div');
-        const isFav = appState.favorites.includes(sound.id);
-        card.className = 'sound-card w-[calc(50%-0.5rem)] sm:w-72 bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-4 shadow-lg shadow-slate-200/50 dark:shadow-none border border-white dark:border-slate-700 hover:-translate-y-1 transition-all duration-300';
-        card.id = `card-${sound.id}`;
-        card.dataset.id = sound.id; 
-        
-        const tagsHtml = sound.tags.map(tag => 
-            `<span class="tag-btn text-xs px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-600 dark:hover:text-blue-300 transition-colors" data-tag="${tag}">#<span data-i18n="tag_${tag}">${translations[appState.currentLang]['tag_' + tag] || tag}</span></span>`
-        ).join(' ');
+    const render = () => {
+        soundGrid.innerHTML = '';
+        // 로더 제거 후 그리드 레이아웃 복구 (flex-col -> flex-wrap)
+        soundGrid.className = "flex flex-wrap justify-center gap-4 sm:gap-8 w-full";
 
-        card.innerHTML = `
-            <div class="w-full flex justify-between items-start">
-                <div class="w-8"></div>
-                <div class="text-blue-400 mb-2"><i data-lucide="${sound.icon}" class="w-8 h-8 sm:w-12 sm:h-12"></i></div>
-                <button class="fav-btn w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors ${isFav ? 'text-red-500' : 'text-slate-400 dark:text-slate-400'}" data-id="${sound.id}">
-                    <i data-lucide="heart" class="w-5 h-5 ${isFav ? 'fill-current' : ''}"></i>
-                </button>
-            </div>
-            <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white" data-i18n="sound_${sound.id}">${translations[appState.currentLang]['sound_' + sound.id]}</h3>
-            <div class="flex gap-2 mb-2 flex-wrap justify-center">${tagsHtml}</div>
-            <div class="w-full flex flex-col gap-3 mt-2">
-                <button id="btn-${sound.id}" class="w-full py-2.5 rounded-xl bg-white border border-slate-200 dark:bg-slate-700 dark:border-slate-600 hover:bg-blue-500 hover:border-blue-500 dark:hover:bg-blue-500 dark:hover:border-blue-500 text-slate-600 dark:text-slate-200 hover:text-white dark:hover:text-white font-medium transition-all shadow-sm flex justify-center items-center gap-2 group">
-                    <i data-lucide="play" width="16"></i> <span data-i18n="play">${translations[appState.currentLang].play}</span>
-                </button>
-            </div>`;
-        soundGrid.appendChild(card);
+        soundsData.forEach((sound, index) => {
+            const card = document.createElement('div');
+            const isFav = appState.favorites.includes(sound.id);
+            
+            // card-enter 클래스 추가 및 애니메이션 딜레이 설정
+            card.className = 'sound-card w-[calc(50%-0.5rem)] sm:w-72 bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-4 shadow-lg shadow-slate-200/50 dark:shadow-none border border-white dark:border-slate-700 hover:-translate-y-1 transition-all duration-300 card-enter';
+            card.style.animationDelay = `${index * 0.05}s`;
+            
+            card.id = `card-${sound.id}`;
+            card.dataset.id = sound.id; 
+            
+            const tagsHtml = sound.tags.map(tag => 
+                `<span class="tag-btn text-xs px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-600 dark:hover:text-blue-300 transition-colors" data-tag="${tag}">#<span data-i18n="tag_${tag}">${translations[appState.currentLang]['tag_' + tag] || tag}</span></span>`
+            ).join(' ');
 
-        // Web Audio API: GainNode만 미리 생성 (Source는 재생 시 생성)
-        const gainNode = audioCtx.createGain();
-        gainNode.gain.value = 0.5;
-        gainNode.connect(audioCtx.destination);
+            card.innerHTML = `
+                <div class="w-full flex justify-between items-start">
+                    <div class="w-8"></div>
+                    <div class="text-blue-400 mb-2"><i data-lucide="${sound.icon}" class="w-8 h-8 sm:w-12 sm:h-12"></i></div>
+                    <button class="fav-btn w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors ${isFav ? 'text-red-500' : 'text-slate-400 dark:text-slate-400'}" data-id="${sound.id}">
+                        <i data-lucide="heart" class="w-5 h-5 ${isFav ? 'fill-current' : ''}"></i>
+                    </button>
+                </div>
+                <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white" data-i18n="sound_${sound.id}">${translations[appState.currentLang]['sound_' + sound.id]}</h3>
+                <div class="flex gap-2 mb-2 flex-wrap justify-center">${tagsHtml}</div>
+                <div class="w-full flex flex-col gap-3 mt-2">
+                    <button id="btn-${sound.id}" class="w-full py-2.5 rounded-xl bg-white border border-slate-200 dark:bg-slate-700 dark:border-slate-600 hover:bg-blue-500 hover:border-blue-500 dark:hover:bg-blue-500 dark:hover:border-blue-500 text-slate-600 dark:text-slate-200 hover:text-white dark:hover:text-white font-medium transition-all shadow-sm flex justify-center items-center gap-2 group">
+                        <i data-lucide="play" width="16"></i> <span data-i18n="play">${translations[appState.currentLang].play}</span>
+                    </button>
+                </div>`;
+            soundGrid.appendChild(card);
 
-        audioPlayers[sound.id] = { 
-            gainNode, 
-            source: null, // AudioBufferSourceNode (재생 시 생성)
-            isPlaying: false,
-            isLoading: false, // 로딩 상태 추적 추가
-            userVolume: 0.5, // 사용자 설정 볼륨 저장
-            file: sound.file 
-        };
+            // Web Audio API: GainNode만 미리 생성 (Source는 재생 시 생성)
+            if (!audioPlayers[sound.id]) {
+                const gainNode = audioCtx.createGain();
+                gainNode.gain.value = 0.5;
+                gainNode.connect(audioCtx.destination);
 
-        const playBtn = card.querySelector(`#btn-${sound.id}`);
-        const favBtn = card.querySelector('.fav-btn');
+                audioPlayers[sound.id] = { 
+                    gainNode, 
+                    source: null, // AudioBufferSourceNode (재생 시 생성)
+                    isPlaying: false,
+                    isLoading: false, // 로딩 상태 추적 추가
+                    userVolume: 0.5, // 사용자 설정 볼륨 저장
+                    file: sound.file 
+                };
+            }
 
-        // Accessibility: Add ARIA Labels
-        const soundName = translations[appState.currentLang]['sound_' + sound.id] || sound.id;
-        playBtn.setAttribute('aria-label', `${soundName} ${translations[appState.currentLang].play}`);
-        favBtn.setAttribute('aria-label', `${soundName} ${translations[appState.currentLang].my_saved}`);
+            const playBtn = card.querySelector(`#btn-${sound.id}`);
+            const favBtn = card.querySelector('.fav-btn');
 
-        playBtn.addEventListener('click', () => {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            toggleSound(sound.id);
+            // Accessibility: Add ARIA Labels
+            const soundName = translations[appState.currentLang]['sound_' + sound.id] || sound.id;
+            playBtn.setAttribute('aria-label', `${soundName} ${translations[appState.currentLang].play}`);
+            favBtn.setAttribute('aria-label', `${soundName} ${translations[appState.currentLang].my_saved}`);
+
+            playBtn.addEventListener('click', () => {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                toggleSound(sound.id);
+            });
+            favBtn.addEventListener('click', () => toggleFavorite(sound.id));
         });
-        favBtn.addEventListener('click', () => toggleFavorite(sound.id));
-    });
 
-    // 검색 결과 없음 메시지 요소 추가
-    const noResult = document.createElement('div');
-    noResult.id = 'no-search-result';
-    noResult.className = 'hidden w-full py-12 text-center text-slate-500 dark:text-slate-400';
-    noResult.innerHTML = `
-        <div class="flex flex-col items-center gap-3">
-            <i data-lucide="search-x" class="w-12 h-12 opacity-50"></i>
-            <p class="text-lg font-medium" data-i18n="msg_no_result">${translations[appState.currentLang].msg_no_result}</p>
-        </div>
-    `;
-    soundGrid.appendChild(noResult);
+        // 검색 결과 없음 메시지 요소 추가
+        const noResult = document.createElement('div');
+        noResult.id = 'no-search-result';
+        noResult.className = 'hidden w-full py-12 text-center text-slate-500 dark:text-slate-400';
+        noResult.innerHTML = `
+            <div class="flex flex-col items-center gap-3">
+                <i data-lucide="search-x" class="w-12 h-12 opacity-50"></i>
+                <p class="text-lg font-medium" data-i18n="msg_no_result">${translations[appState.currentLang].msg_no_result}</p>
+            </div>
+        `;
+        soundGrid.appendChild(noResult);
+        
+        lucide.createIcons();
+        restoreSession(); // 카드가 생성된 후 세션 복원
+    };
+
+    if (loader) {
+        // 로고 로더를 최소 1초는 보여준 뒤 카드로 전환 (너무 빨리 사라지면 어색함)
+        setTimeout(() => {
+            loader.style.transition = 'opacity 0.5s ease';
+            loader.style.opacity = '0';
+            setTimeout(render, 500); // 페이드 아웃 완료 후 카드 렌더링
+        }, 1000);
+    } else {
+        render();
+    }
 
     soundGrid.addEventListener('click', (e) => {
         const btn = e.target.closest('.tag-btn');
@@ -1406,10 +1435,11 @@ function initSoundCards() {
 // 믹스 버튼 렌더링
 function renderMixes() {
     if (!mixGrid) return;
-    mixGrid.innerHTML = '';
-    soundMixes.forEach(mix => {
+    mixGrid.innerHTML = ''; // 로딩 문구 삭제
+    soundMixes.forEach((mix, index) => {
         const btn = document.createElement('button');
-        btn.className = 'flex items-center gap-2 px-6 py-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all shadow-sm group';
+        btn.className = 'flex items-center gap-2 px-6 py-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all shadow-sm group card-enter';
+        btn.style.animationDelay = `${index * 0.1}s`;
         btn.innerHTML = `
             <i data-lucide="${mix.icon}" class="w-6 h-6 text-blue-400 group-hover:text-blue-500 transition-colors"></i>
             <span class="font-medium" data-i18n="mix_${mix.id}">${translations[appState.currentLang]['mix_' + mix.id]}</span>
@@ -1974,7 +2004,8 @@ window.resetAllButtons = function() {
     saveSession();
 };
 
-function stopAllSounds() {
+// 앱에서 호출할 수 있도록 전역 함수로 선언
+window.stopAllSounds = function() {
     if (typeof Android !== 'undefined' && typeof Android.stopAllAudio === 'function') Android.stopAllAudio();
     // 모든 오디오 플레이어를 확인하여 강제 정지 (activeSounds 목록과 무관하게 처리)
     Object.keys(audioPlayers).forEach(id => {
@@ -1999,7 +2030,8 @@ function stopAllSounds() {
     appState.activeSounds = [];
     updatePlayerBar();
     saveSession();
-}
+    console.log("앱의 요청으로 모든 소리가 정지되었습니다.");
+};
 
 // 페이드 아웃 종료 함수 (타이머용)
 window.fadeOutAndStopAll = function(duration = 5) {
@@ -2683,7 +2715,6 @@ function init() {
     if (soundGrid) {
         initSoundCards();
         initSoundSearch();
-        restoreSession();
         // preloadAllSounds(); // 초기 로딩 속도 개선을 위해 비활성화 (클릭 시 로드)
     }
     

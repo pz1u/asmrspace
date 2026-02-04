@@ -9,6 +9,31 @@
     ">
     <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups">
     <title>My ASMR Space | Free Sounds for Sleep & Focus</title>
+    <style>
+      /* 1. 흰색 번쩍임 방지: 브라우저가 읽자마자 배경을 slate-950(어두운색)으로 고정 */
+      :root, html, body {
+        background-color: #020617 !important; /* 지우님 앱의 slate-950 색상 */
+        color: #f8fafc !important;
+      }
+
+      /* 2. 제목 텍스트 겹침 및 유령 현상 해결 */
+      h2 span[data-i18n="mix_title"] {
+        display: inline-block !important;
+        line-height: 1.5 !important;
+        padding: 0.2em 0 !important;
+        /* 그라데이션 텍스트가 깨지지 않게 보정 */
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent !important; /* 모바일 필수 속성 */
+        color: transparent !important;
+      }
+
+      /* 3. 모바일에서 제목과 그리드 사이 간격 강제 확보 */
+      h2.flex {
+        margin-bottom: 2rem !important; /* mb-8보다 더 확실한 간격 */
+        flex-wrap: wrap !important;
+      }
+    </style>
     <meta name="description" content="Free ASMR service for sleep and focus, available on App and Web. Listen to rain, fire, typing sounds, and white noise. 애플리케이션과 웹에서 즐기는 잠 잘 오는 무료 ASMR입니다. 빗소리, 장작불 등 백색소음을 무료로 들어보세요.">
     <meta name="keywords" content="ASMR, White Noise, Sleep Sounds, Focus Music, Rain Sounds, Fire Sounds, 백색소음, 수면유도, 빗소리, 장작불">
     <link rel="canonical" href="https://asmrspace.shop/">
@@ -80,8 +105,7 @@
         main.flex-grow { min-height: calc(100vh - 250px); }
         #mix-grid { min-height: 120px; }
     </style>
-    <link rel="preload" href="./output.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="./output.css"></noscript>
+    <link rel="stylesheet" href="./output.css">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest" defer></script>
 
@@ -202,19 +226,22 @@
                 <i data-lucide="sparkles" class="w-6 h-6 text-yellow-400"></i>
                 <span data-i18n="mix_title" class="bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">추천 사운드 믹스</span>
             </h2>
-            <div id="mix-grid" class="flex flex-wrap justify-center items-center gap-4"></div>
+            <div id="mix-grid" class="flex flex-wrap justify-center items-center gap-4 min-h-[60px]">
+                <div class="mix-loader animate-pulse text-slate-500 text-xs tracking-widest">LOADING MIXES...</div>
+            </div>
         </section>
 
-        <div id="sound-grid" class="flex flex-wrap justify-center gap-4 sm:gap-8" style="min-height: 600px;">
-            <!-- 스켈레톤 로딩 (8개) -->
-            <div class="skeleton-card w-32 sm:w-40 h-40 sm:h-48 bg-slate-200 dark:bg-slate-700 rounded-2xl animate-pulse"></div>
-            <div class="skeleton-card w-32 sm:w-40 h-40 sm:h-48 bg-slate-200 dark:bg-slate-700 rounded-2xl animate-pulse"></div>
-            <div class="skeleton-card w-32 sm:w-40 h-40 sm:h-48 bg-slate-200 dark:bg-slate-700 rounded-2xl animate-pulse"></div>
-            <div class="skeleton-card w-32 sm:w-40 h-40 sm:h-48 bg-slate-200 dark:bg-slate-700 rounded-2xl animate-pulse"></div>
-            <div class="skeleton-card w-32 sm:w-40 h-40 sm:h-48 bg-slate-200 dark:bg-slate-700 rounded-2xl animate-pulse"></div>
-            <div class="skeleton-card w-32 sm:w-40 h-40 sm:h-48 bg-slate-200 dark:bg-slate-700 rounded-2xl animate-pulse"></div>
-            <div class="skeleton-card w-32 sm:w-40 h-40 sm:h-48 bg-slate-200 dark:bg-slate-700 rounded-2xl animate-pulse"></div>
-            <div class="skeleton-card w-32 sm:w-40 h-40 sm:h-48 bg-slate-200 dark:bg-slate-700 rounded-2xl animate-pulse"></div>
+        <div id="sound-grid" class="flex flex-col items-center justify-center w-full" style="min-height: 600px;">
+            <div id="main-loader" class="flex flex-col items-center gap-6 py-20">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full animate-glow-soft"></div>
+                    <img src="icon.webp" alt="Loading..." 
+                         class="w-24 h-24 rounded-[2.5rem] shadow-2xl relative z-10 animate-breathe">
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 font-light tracking-[0.2em] text-xs uppercase animate-pulse" data-i18n="loading_msg">
+                    Setting the mood...
+                </p>
+            </div>
         </div>
 
         <!-- AdSense 승인을 위한 콘텐츠 보강 (텍스트 추가) -->
